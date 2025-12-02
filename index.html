@@ -23,7 +23,7 @@
             --bg-muted: #f5f7fa;
             --card-bg: #ffffff;
             --text: #2c3e50;
-            --text-light: #6c757d;
+            --text-light: #464d52;
             --primary-1: #2d78b5;
             --primary-2: #42a5f5;
             --accent: #1976d2;
@@ -270,7 +270,7 @@
         }
 
         .small {
-            font-size: 13px;
+            font-size: 16px;
             color: var(--text-light);
             margin-bottom: 6px;
         }
@@ -283,7 +283,7 @@
         }
 
         .sub {
-            font-size: 12px;
+            font-size: 15px;
             color: var(--text-light);
             margin-top: 4px;
         }
@@ -305,7 +305,7 @@
         }
 
         .legend-title {
-            font-size: 11px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--text-light);
             margin-bottom: 8px;
@@ -314,7 +314,7 @@
         }
 
         .legend-items {
-            font-size: 13px;
+            font-size: 15px;
             color: var(--text);
             line-height: 1.6;
         }
@@ -902,13 +902,13 @@
                 <!-- Card 2: Employee Head Count -->
                 <div class="card">
                     <h3>Employee Head Count</h3>
-                    <canvas id="headCountChart"></canvas>
+                    <canvas id="headCountChart" style="margin-top:50px;"></canvas>
                 </div>
 
                 <!-- Card 3: CTC Payout -->
                 <div class="card">
                     <h3>CTC Payout (Last 6 months)</h3>
-                    <canvas id="ctcChart"></canvas>
+                    <canvas id="ctcChart" style="margin-top:50px;"></canvas>
                 </div>
             </div>
 
@@ -918,7 +918,7 @@
                     <span class="notification-badge">5</span>
                     Pending Requests
                 </div>
-                <div class="quick red">Process Alerts</div>
+                <div class="quick red">Compliance Checks</div>
                 <div class="quick yellow">
                     <span class="notification-badge">3</span>
                     Today's Events
@@ -1138,7 +1138,7 @@
                 labels: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
                 datasets: [{
                     label: 'Active',
-                    data: [150, 152, 155, 158, 160, 162],
+                    data: [550, 152, 155, 158, 160, 162],
                     backgroundColor: colors.blueDark,
                     borderRadius: 6
                 }, {
