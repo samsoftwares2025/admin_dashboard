@@ -383,7 +383,7 @@
         .project-card {
             background: linear-gradient(135deg, #fff, #f8f9fa);
             border-radius: 12px;
-            padding: 20px;
+            padding: 25px;
             border-left: 5px solid var(--primary-1);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             transition: var(--transition);
@@ -411,9 +411,10 @@
         }
 
         .project-description {
-            font-size: 13px;
+            font-size: 15px;
             color: var(--text-light);
             margin: 0 0 10px 0;
+            padding: 1px;
         }
 
         .project-status {
@@ -492,6 +493,14 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+.project-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-progress {
+    margin-top: auto; /* pushes progress section to bottom */
+}
 
        
         
@@ -546,8 +555,8 @@
             border: none;
             background: transparent;
             color: var(--text-light);
-            font-weight: 600;
-            font-size: 12px;
+            font-weight: 620;
+            font-size: 14px;
             border-radius: 10px;
             cursor: pointer;
             text-align: left;
@@ -662,7 +671,7 @@
     <li class="nav-item nav-has-submenu">
         <button class="nav-toggle">
             <span class="nav-icon"><i class="fa-solid fa-user-tie"></i></span>
-            <span class="nav-text">Recruitment & Talent Acquisition (ATS)</span>
+            <span class="nav-text">Recruitment & ATS</span>
             <span class="nav-caret">▸</span>
         </button>
         <ul class="submenu">
@@ -678,7 +687,7 @@
     <li class="nav-item nav-has-submenu">
         <button class="nav-toggle">
             <span class="nav-icon"><i class="fa-solid fa-clock"></i></span>
-            <span class="nav-text">Time, Attendance & Leave</span>
+            <span class="nav-text">Attendance</span>
             <span class="nav-caret">▸</span>
         </button>
         <ul class="submenu">
@@ -719,7 +728,7 @@
     <li class="nav-item nav-has-submenu">
         <button class="nav-toggle">
             <span class="nav-icon"><i class="fa-solid fa-graduation-cap"></i></span>
-            <span class="nav-text">Learning & Development (LMS)</span>
+            <span class="nav-text">Learning & Development</span>
             <span class="nav-caret">▸</span>
         </button>
         <ul class="submenu">
