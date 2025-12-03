@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>HR Dashboard - Employee Visa & Pro Work</title>
+    <title>HR Dashboard - Departments & Cost Centers</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -596,7 +596,7 @@
         table.data-table th,
         table.data-table td {
             padding: 10px 12px;
-            font-size: 15px;
+            font-size: 14px;
             text-align: left;
             border-bottom: 1px solid var(--muted-border);
             white-space: nowrap;
@@ -664,6 +664,30 @@
         .icon-btn.delete:hover {
             background: #ffe6e9;
             border-color: #ffc2c9;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-onbudget {
+            background: #ecfdf3;
+            color: #166534;
+        }
+
+        .status-overbudget {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+        .status-underutilized {
+            background: #eff6ff;
+            color: #1d4ed8;
         }
 
         .table-footer {
@@ -854,28 +878,29 @@
                 </a>
             </li>
 
-            <li class="nav-item nav-has-submenu open">
-                <button class="nav-toggle" aria-expanded="true">
+            <li class="nav-item nav-has-submenu">
+                <button class="nav-toggle">
                     <span class="nav-icon"><i class="fa-solid fa-users"></i></span>
                     <span class="nav-text">Employees</span>
                     <span class="nav-caret">▸</span>
                 </button>
-                <ul class="submenu" aria-hidden="false">
+                <ul class="submenu" aria-hidden="true">
                     <li><a href="employee_master.html" class="submenu-link">Employee Master Data</a></li>
                     <li><a href="employee_contact_personal_info.html" class="submenu-link">Contact & Personal Info</a></li>
                     <li><a href="employment_history.html" class="submenu-link">Employment History</a></li>
-                    <li><a href="visa_pro_work.html" class="submenu-link active-submenu">Visa and Pro Work</a></li>
+                    <li><a href="visa_pro_work.html" class="submenu-link">Visa and Pro Work</a></li>
                 </ul>
             </li>
 
-            <li class="nav-item nav-has-submenu">
-                <button class="nav-toggle">
+            <!-- Organization (active) -->
+            <li class="nav-item nav-has-submenu open">
+                <button class="nav-toggle" aria-expanded="true">
                     <span class="nav-icon"><i class="fa-solid fa-building"></i></span>
                     <span class="nav-text">Organization</span>
                     <span class="nav-caret">▸</span>
                 </button>
-                <ul class="submenu" aria-hidden="true">
-                    <li><a href="department_and_cost_ceneters.html" class="submenu-link">Departments & Cost Centers</a></li>
+                <ul class="submenu" aria-hidden="false">
+                    <li><a href="department_and_cost_ceneters.html" class="submenu-link active-submenu">Departments & Cost Centers</a></li>
                     <li><a href="roles_and_permissions_listing.html" class="submenu-link">Roles & Permissions</a></li>
                     <li><a class="submenu-link">Policies</a></li>
                     <li><a class="submenu-link">Company Rules</a></li>
@@ -1060,7 +1085,8 @@
                 </a>
             </li>
 
-            <button id="logoutBtn" class="nav-link logout-btn-mob" type="button" title="Log out" aria-label="Log out">
+            <button id="logoutBtn" class="nav-link logout-btn-mob" type="button" title="Log out"
+                    aria-label="Log out">
                 <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
                 Logout
             </button>
@@ -1101,9 +1127,9 @@
         <div class="the_line"></div>
 
         <div class="page-title">
-            <h3>Employee Visa & Pro Work</h3>
+            <h3>Departments & Cost Centers</h3>
             <p class="subtitle">
-                Track and manage employee visa, work permits and professional work authorization details.
+                Group employees by departments and track cost center allocations for budgeting and planning.
             </p>
         </div>
 
@@ -1112,42 +1138,30 @@
             <div class="filters-left">
                 <div class="search-input">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="Search by name, ID, passport, visa no...">
+                    <input type="text" id="searchInput" placeholder="Search by department, code, manager...">
                 </div>
 
-                <select id="filterDepartment" class="filter-select">
-                    <option value="">All Departments</option>
-                    <option value="Engineering">Engineering</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="HR">HR</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Finance">Finance</option>
+                <select id="filterLocation" class="filter-select">
+                    <option value="">All Locations</option>
+                    <option value="Head Office - New York">Head Office - New York</option>
+                    <option value="Branch Office - California">Branch Office - California</option>
+                    <option value="Branch Office - Texas">Branch Office - Texas</option>
+                    <option value="Remote">Remote</option>
                 </select>
 
-                <select id="filterCountry" class="filter-select">
-                    <option value="">All Countries</option>
-                    <option value="USA">USA</option>
-                    <option value="India">India</option>
-                    <option value="UK">UK</option>
-                    <option value="Canada">Canada</option>
-                    <option value="Germany">Germany</option>
-                </select>
-
-                <select id="filterVisaType" class="filter-select">
-                    <option value="">All Visa Types</option>
-                    <option value="H1B">H1B</option>
-                    <option value="L1">L1</option>
-                    <option value="B1/B2">B1/B2</option>
-                    <option value="Work Permit">Work Permit</option>
-                    <option value="Intra-company Transfer">Intra-company Transfer</option>
+                <select id="filterGroup" class="filter-select">
+                    <option value="">All Cost Groups</option>
+                    <option value="Revenue">Revenue Generating</option>
+                    <option value="Support">Support Functions</option>
+                    <option value="Operations">Operations</option>
+                    <option value="Corporate">Corporate</option>
                 </select>
 
                 <select id="filterStatus" class="filter-select">
-                    <option value="">All Status</option>
-                    <option value="Valid">Valid</option>
-                    <option value="Expiring Soon">Expiring Soon</option>
-                    <option value="Expired">Expired</option>
-                    <option value="Applied">Applied</option>
+                    <option value="">All Budget Status</option>
+                    <option value="On Budget">On Budget</option>
+                    <option value="Over Budget">Over Budget</option>
+                    <option value="Under Utilized">Under Utilized</option>
                 </select>
             </div>
 
@@ -1156,9 +1170,9 @@
                     <i class="fa-solid fa-filter-circle-xmark"></i>
                     Clear Filters
                 </button>
-                <button class="btn btn-primary" id="addVisaBtn">
-                   <i class="fa-solid fa-user-plus"></i>
-                        Add Employee
+                <button class="btn btn-primary" id="addDeptBtn">
+                    <i class="fa-solid fa-plus"></i>
+                    Add Department / Cost Center
                 </button>
             </div>
         </div>
@@ -1166,248 +1180,204 @@
         <!-- TABLE -->
         <div class="table-container">
             <div class="table-header-bar">
-                <h4>Visa & Pro Work Records
-                    <span class="badge-pill" id="employeeCountBadge">Total: 8</span>
+                <h4>Departments & Cost Centers
+                    <span class="badge-pill" id="deptCountBadge">Total: 6</span>
                 </h4>
-                <small>Current and historical visa and work authorization data.</small>
+                <small>Overview of departments, headcount and cost allocations.</small>
             </div>
 
             <div class="data-table-wrapper">
-                <table class="data-table" id="employeeTable">
+                <table class="data-table" id="deptTable">
                     <thead>
                     <tr>
-                        <th>Employee ID</th>
-                        <th>Employee</th>
-                        <th>Citizenship</th>
-                        <th>Visa / Permit Type</th>
-                        <th>Visa / Permit No.</th>
-                        <th>Country of Work</th>
-                        <th>Issue Date</th>
-                        <th>Expiry Date</th>
-                        <th>Status</th>
+                        <th>Department</th>
+                        <th>Cost Center Code</th>
+                        <th>Cost Group</th>
+                        <th>Location</th>
+                        <th>Headcount</th>
+                        <th>Monthly Budget</th>
+                        <th>Actual Spend (MTD)</th>
+                        <th>Variance</th>
+                        <th>Budget Status</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     <!-- SAMPLE ROWS -->
-                    <tr data-department="Engineering" data-country="USA" data-visa-type="H1B" data-status="Valid">
-                        <td>#EMP-1001</td>
+                    <tr data-location="Head Office - New York" data-group="Revenue" data-status="On Budget">
                         <td>
-                            <div class="emp-name">John Smith</div>
-                            <div class="emp-sub">Senior Software Engineer • Engineering</div>
+                            <div class="emp-name">Engineering</div>
+                            <div class="emp-sub">Product Development & Platform</div>
                         </td>
-                        <td>India</td>
-                        <td>H1B</td>
-                        <td>H1B-2022-00123</td>
-                        <td>USA</td>
-                        <td>2022-01-10</td>
-                        <td>2025-01-09</td>
-                        <td><span style="color: var(--success); font-weight: 600;">Valid</span></td>
+                        <td>ENG-1001</td>
+                        <td>Revenue Generating</td>
+                        <td>Head Office - New York</td>
+                        <td>48</td>
+                        <td>$320,000</td>
+                        <td>$310,500</td>
+                        <td>+$9,500</td>
+                        <td>
+                            <span class="status-pill status-onbudget">On Budget</span>
+                        </td>
                         <td>
                             <div class="table-actions">
                                 <button class="icon-btn view" title="View Details">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-                                <button class="icon-btn edit" title="Edit Visa / Pro Work">
+                                <button class="icon-btn edit" title="Edit Department">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button class="icon-btn delete" title="Delete Record">
+                                <button class="icon-btn delete" title="Delete Department">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
 
-                    <tr data-department="Marketing" data-country="USA" data-visa-type="B1/B2" data-status="Expiring Soon">
-                        <td>#EMP-1002</td>
+                    <tr data-location="Head Office - New York" data-group="Support" data-status="Over Budget">
                         <td>
-                            <div class="emp-name">Sarah Johnson</div>
-                            <div class="emp-sub">Marketing Specialist • Marketing</div>
+                            <div class="emp-name">HR</div>
+                            <div class="emp-sub">People Operations & Talent</div>
                         </td>
-                        <td>USA</td>
-                        <td>B1/B2</td>
-                        <td>B1B2-2019-45567</td>
-                        <td>USA</td>
-                        <td>2019-05-01</td>
-                        <td>2025-02-15</td>
-                        <td><span style="color:#c27c0e;font-weight:600;">Expiring Soon</span></td>
+                        <td>HR-2001</td>
+                        <td>Support Functions</td>
+                        <td>Head Office - New York</td>
+                        <td>15</td>
+                        <td>$80,000</td>
+                        <td>$92,300</td>
+                        <td>- $12,300</td>
+                        <td>
+                            <span class="status-pill status-overbudget">Over Budget</span>
+                        </td>
                         <td>
                             <div class="table-actions">
                                 <button class="icon-btn view" title="View Details">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-                                <button class="icon-btn edit" title="Edit Visa / Pro Work">
+                                <button class="icon-btn edit" title="Edit Department">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button class="icon-btn delete" title="Delete Record">
+                                <button class="icon-btn delete" title="Delete Department">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
 
-                    <tr data-department="HR" data-country="UK" data-visa-type="Work Permit" data-status="Valid">
-                        <td>#EMP-1003</td>
+                    <tr data-location="Branch Office - California" data-group="Revenue" data-status="On Budget">
                         <td>
-                            <div class="emp-name">Mike Davis</div>
-                            <div class="emp-sub">HR Manager • HR</div>
+                            <div class="emp-name">Sales - West</div>
+                            <div class="emp-sub">Field & Inside Sales</div>
                         </td>
-                        <td>UK</td>
-                        <td>Work Permit</td>
-                        <td>WP-UK-2020-99881</td>
-                        <td>UK</td>
-                        <td>2020-03-01</td>
-                        <td>2026-02-28</td>
-                        <td><span style="color: var(--success); font-weight: 600;">Valid</span></td>
+                        <td>SALES-W-3001</td>
+                        <td>Revenue Generating</td>
+                        <td>Branch Office - California</td>
+                        <td>26</td>
+                        <td>$150,000</td>
+                        <td>$149,200</td>
+                        <td>+$800</td>
+                        <td>
+                            <span class="status-pill status-onbudget">On Budget</span>
+                        </td>
                         <td>
                             <div class="table-actions">
                                 <button class="icon-btn view" title="View Details">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-                                <button class="icon-btn edit" title="Edit Visa / Pro Work">
+                                <button class="icon-btn edit" title="Edit Department">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button class="icon-btn delete" title="Delete Record">
+                                <button class="icon-btn delete" title="Delete Department">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
 
-                    <tr data-department="Sales" data-country="Canada" data-visa-type="Work Permit" data-status="Expired">
-                        <td>#EMP-1004</td>
+                    <tr data-location="Branch Office - Texas" data-group="Operations" data-status="Under Utilized">
                         <td>
-                            <div class="emp-name">Emily Carter</div>
-                            <div class="emp-sub">Account Executive • Sales</div>
+                            <div class="emp-name">Operations - Support</div>
+                            <div class="emp-sub">Customer Success & Support</div>
                         </td>
-                        <td>Canada</td>
-                        <td>Work Permit</td>
-                        <td>WP-CA-2018-33221</td>
-                        <td>Canada</td>
-                        <td>2018-01-01</td>
-                        <td>2021-12-31</td>
-                        <td><span style="color:#6b7280;font-weight:600;">Expired</span></td>
+                        <td>OPS-SUP-4001</td>
+                        <td>Operations</td>
+                        <td>Branch Office - Texas</td>
+                        <td>22</td>
+                        <td>$110,000</td>
+                        <td>$92,750</td>
+                        <td>+$17,250</td>
+                        <td>
+                            <span class="status-pill status-underutilized">Under Utilized</span>
+                        </td>
                         <td>
                             <div class="table-actions">
                                 <button class="icon-btn view" title="View Details">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-                                <button class="icon-btn edit" title="Edit Visa / Pro Work">
+                                <button class="icon-btn edit" title="Edit Department">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button class="icon-btn delete" title="Delete Record">
+                                <button class="icon-btn delete" title="Delete Department">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
 
-                    <tr data-department="Engineering" data-country="India" data-visa-type="—" data-status="Applied">
-                        <td>#EMP-1005</td>
+                    <tr data-location="Head Office - New York" data-group="Corporate" data-status="Over Budget">
                         <td>
-                            <div class="emp-name">Rahul Sharma</div>
-                            <div class="emp-sub">DevOps Engineer • Engineering</div>
+                            <div class="emp-name">Finance</div>
+                            <div class="emp-sub">Corporate Finance & Controlling</div>
                         </td>
-                        <td>India</td>
-                        <td>H1B</td>
-                        <td>H1B-2025-APPL</td>
-                        <td>USA</td>
-                        <td>—</td>
-                        <td>—</td>
-                        <td><span style="color:#2563eb;font-weight:600;">Applied</span></td>
+                        <td>FIN-5001</td>
+                        <td>Corporate</td>
+                        <td>Head Office - New York</td>
+                        <td>12</td>
+                        <td>$95,000</td>
+                        <td>$104,600</td>
+                        <td>- $9,600</td>
+                        <td>
+                            <span class="status-pill status-overbudget">Over Budget</span>
+                        </td>
                         <td>
                             <div class="table-actions">
                                 <button class="icon-btn view" title="View Details">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-                                <button class="icon-btn edit" title="Edit Visa / Pro Work">
+                                <button class="icon-btn edit" title="Edit Department">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button class="icon-btn delete" title="Delete Record">
+                                <button class="icon-btn delete" title="Delete Department">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
 
-                    <tr data-department="Finance" data-country="Germany" data-visa-type="Intra-company Transfer" data-status="Valid">
-                        <td>#EMP-1006</td>
+                    <tr data-location="Remote" data-group="Support" data-status="Under Utilized">
                         <td>
-                            <div class="emp-name">Oliver Brown</div>
-                            <div class="emp-sub">Financial Analyst • Finance</div>
+                            <div class="emp-name">IT & Infrastructure</div>
+                            <div class="emp-sub">Systems, Security & Tools</div>
                         </td>
-                        <td>Germany</td>
-                        <td>Intra-company Transfer</td>
-                        <td>ICT-DE-2023-77889</td>
-                        <td>Germany</td>
-                        <td>2023-04-01</td>
-                        <td>2026-03-31</td>
-                        <td><span style="color: var(--success); font-weight: 600;">Valid</span></td>
+                        <td>IT-6001</td>
+                        <td>Support Functions</td>
+                        <td>Remote</td>
+                        <td>9</td>
+                        <td>$70,000</td>
+                        <td>$51,400</td>
+                        <td>+$18,600</td>
+                        <td>
+                            <span class="status-pill status-underutilized">Under Utilized</span>
+                        </td>
                         <td>
                             <div class="table-actions">
                                 <button class="icon-btn view" title="View Details">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-                                <button class="icon-btn edit" title="Edit Visa / Pro Work">
+                                <button class="icon-btn edit" title="Edit Department">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button class="icon-btn delete" title="Delete Record">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr data-department="Sales" data-country="USA" data-visa-type="B1/B2" data-status="Expired">
-                        <td>#EMP-1007</td>
-                        <td>
-                            <div class="emp-name">Sophia Lee</div>
-                            <div class="emp-sub">Sales Intern • Sales</div>
-                        </td>
-                        <td>USA</td>
-                        <td>B1/B2</td>
-                        <td>B1B2-2017-11442</td>
-                        <td>USA</td>
-                        <td>2017-07-15</td>
-                        <td>2022-07-14</td>
-                        <td><span style="color:#6b7280;font-weight:600;">Expired</span></td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Visa / Pro Work">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Record">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr data-department="HR" data-country="India" data-visa-type="Work Permit" data-status="Valid">
-                        <td>#EMP-1008</td>
-                        <td>
-                            <div class="emp-name">Priya Nair</div>
-                            <div class="emp-sub">HR Executive • HR</div>
-                        </td>
-                        <td>India</td>
-                        <td>Work Permit</td>
-                        <td>WP-IN-2024-55511</td>
-                        <td>India</td>
-                        <td>2024-01-01</td>
-                        <td>2027-12-31</td>
-                        <td><span style="color: var(--success); font-weight: 600;">Valid</span></td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Visa / Pro Work">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Record">
+                                <button class="icon-btn delete" title="Delete Department">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
@@ -1418,7 +1388,7 @@
             </div>
 
             <div class="table-footer">
-                <div id="tableInfo">Showing 1 to 8 of 8 records</div>
+                <div id="tableInfo">Showing 1 to 6 of 6 departments</div>
                 <div class="pagination">
                     <button disabled title="Previous page">
                         <i class="fa-solid fa-angle-left"></i>
@@ -1538,41 +1508,37 @@
         });
     })();
 
-    // Visa & Pro Work filters
+    // Departments & Cost Centers filters
     const searchInput = document.getElementById('searchInput');
-    const filterDepartment = document.getElementById('filterDepartment');
-    const filterCountry = document.getElementById('filterCountry');
-    const filterVisaType = document.getElementById('filterVisaType');
+    const filterLocation = document.getElementById('filterLocation');
+    const filterGroup = document.getElementById('filterGroup');
     const filterStatus = document.getElementById('filterStatus');
-    const employeeTable = document.getElementById('employeeTable');
-    const employeeCountBadge = document.getElementById('employeeCountBadge');
+    const deptTable = document.getElementById('deptTable');
+    const deptCountBadge = document.getElementById('deptCountBadge');
     const tableInfo = document.getElementById('tableInfo');
     const clearFiltersBtn = document.getElementById('clearFiltersBtn');
 
     function applyFilters() {
-        const rows = employeeTable.querySelectorAll('tbody tr');
+        const rows = deptTable.querySelectorAll('tbody tr');
         const searchTerm = searchInput.value.trim().toLowerCase();
-        const deptFilter = filterDepartment.value;
-        const countryFilter = filterCountry.value;
-        const visaFilter = filterVisaType.value;
+        const locFilter = filterLocation.value;
+        const groupFilter = filterGroup.value;
         const statusFilter = filterStatus.value;
 
         let visibleCount = 0;
 
         rows.forEach(row => {
             const rowText = row.textContent.toLowerCase();
-            const rowDept = row.getAttribute('data-department');
-            const rowCountry = row.getAttribute('data-country');
-            const rowVisa = row.getAttribute('data-visa-type');
+            const rowLoc = row.getAttribute('data-location');
+            const rowGroup = row.getAttribute('data-group');
             const rowStatus = row.getAttribute('data-status');
 
             const matchesSearch = !searchTerm || rowText.includes(searchTerm);
-            const matchesDept = !deptFilter || rowDept === deptFilter;
-            const matchesCountry = !countryFilter || rowCountry === countryFilter;
-            const matchesVisa = !visaFilter || rowVisa === visaFilter;
+            const matchesLoc = !locFilter || rowLoc === locFilter;
+            const matchesGroup = !groupFilter || rowGroup === groupFilter;
             const matchesStatus = !statusFilter || rowStatus === statusFilter;
 
-            if (matchesSearch && matchesDept && matchesCountry && matchesVisa && matchesStatus) {
+            if (matchesSearch && matchesLoc && matchesGroup && matchesStatus) {
                 row.style.display = '';
                 visibleCount++;
             } else {
@@ -1580,32 +1546,30 @@
             }
         });
 
-        employeeCountBadge.textContent = 'Total: ' + visibleCount;
-        tableInfo.textContent = `Showing 1 to ${visibleCount} of ${employeeTable.querySelectorAll('tbody tr').length} records`;
+        deptCountBadge.textContent = 'Total: ' + visibleCount;
+        tableInfo.textContent = `Showing 1 to ${visibleCount} of ${deptTable.querySelectorAll('tbody tr').length} departments`;
     }
 
     if (searchInput) searchInput.addEventListener('input', applyFilters);
-    if (filterDepartment) filterDepartment.addEventListener('change', applyFilters);
-    if (filterCountry) filterCountry.addEventListener('change', applyFilters);
-    if (filterVisaType) filterVisaType.addEventListener('change', applyFilters);
+    if (filterLocation) filterLocation.addEventListener('change', applyFilters);
+    if (filterGroup) filterGroup.addEventListener('change', applyFilters);
     if (filterStatus) filterStatus.addEventListener('change', applyFilters);
 
     if (clearFiltersBtn) {
         clearFiltersBtn.addEventListener('click', () => {
             searchInput.value = '';
-            filterDepartment.value = '';
-            filterCountry.value = '';
-            filterVisaType.value = '';
+            filterLocation.value = '';
+            filterGroup.value = '';
             filterStatus.value = '';
             applyFilters();
         });
     }
 
-    const addVisaBtn = document.getElementById('addVisaBtn');
-    if (addVisaBtn) {
-        addVisaBtn.addEventListener('click', () => {
-            // Replace with your actual Visa / Pro Work form page
-            window.location.href = 'add_employee.html';
+    const addDeptBtn = document.getElementById('addDeptBtn');
+    if (addDeptBtn) {
+        addDeptBtn.addEventListener('click', () => {
+            // Replace with your actual Dept / Cost Center form page
+            window.location.href = 'add_department_costcenter.html';
         });
     }
 

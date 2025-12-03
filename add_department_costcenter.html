@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>HR Dashboard - Employee Contact & Personal Info</title>
+    <title>HR Dashboard - Add Department / Cost Center</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -497,233 +497,111 @@
             background: #f1f5f9;
         }
 
-        /* LISTING LAYOUT */
+        /* FORM LAYOUT (same style as employee add form) */
 
-        .filters-container {
+        .form-container {
             background: var(--card-bg);
             border-radius: var(--radius-lg);
-            padding: 20px;
+            padding: 22px 22px 18px;
             box-shadow: var(--shadow);
             border: 1px solid var(--muted-border);
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
-            justify-content: space-between;
+            max-width: 1200px;
         }
 
-        .filters-left,
-        .filters-right {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .search-input {
-            padding: 10px 12px;
-            border-radius: 8px;
+        .form-section {
             border: 1px solid var(--muted-border);
-            min-width: 220px;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 14px;
-            display: flex;
+            border-radius: 12px;
+            padding: 18px 18px 12px;
+            margin-bottom: 16px;
+            background: #ffffff;
+        }
+
+        .section-title {
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #fff;
+            font-size: 16px;
+            margin-bottom: 14px;
+            color: var(--text);
         }
 
-        .search-input input {
-            border: none;
-            outline: none;
-            width: 100%;
-            font-size: 14px;
-            font-family: inherit;
+        .section-title i {
+            color: var(--primary-2);
         }
 
-        .filter-select {
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--muted-border);
-            font-size: 14px;
-            font-family: 'Times New Roman', Times, serif;
-            background: #fff;
-            min-width: 160px;
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 18px;
         }
 
-        .table-container {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--muted-border);
-            overflow: hidden;
+        .form-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px 18px;
         }
 
-        .table-header-bar {
+        .form-group {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .table-header-bar h4 {
-            font-size: 16px;
-        }
-
-        .badge-pill {
-            padding: 4px 10px;
-            border-radius: 999px;
-            background: #e2e8f0;
-            font-size: 12px;
-            color: var(--text-light);
-            margin-left: 4px;
-        }
-
-        .data-table-wrapper {
-            overflow-x: auto;
-            border-radius: 10px;
-            border: 1px solid var(--muted-border);
-        }
-
-        table.data-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 900px;
-            background: #fff;
-        }
-
-        table.data-table thead {
-            background: #f1f5f9;
-        }
-
-        table.data-table th,
-        table.data-table td {
-            padding: 10px 12px;
-            font-size: 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--muted-border);
-            white-space: nowrap;
-        }
-
-        table.data-table th {
-            font-weight: 700;
-            color: var(--text-light);
-        }
-
-        table.data-table tbody tr:hover {
-            background: #f8fafc;
-        }
-
-        .emp-name {
-            font-weight: 600;
-        }
-
-        .emp-sub {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .contact-sub {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .table-actions {
-            display: inline-flex;
+            flex-direction: column;
             gap: 6px;
         }
 
-        .icon-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            border: 1px solid var(--muted-border);
-            background: #fff;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            cursor: pointer;
-            transition: var(--transition);
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
         }
 
-        .icon-btn:hover {
-            background: #f1f5f9;
-            transform: translateY(1px);
-        }
-
-        .icon-btn.view {
-            color: var(--accent);
-        }
-
-        .icon-btn.edit {
-            color: #c27c0e;
-        }
-
-        .icon-btn.delete {
+        .form-label.required::after {
+            content: " *";
             color: var(--danger);
         }
 
-        .icon-btn.delete:hover {
-            background: #ffe6e9;
-            border-color: #ffc2c9;
-        }
-
-        .table-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 12px;
-            margin-top: 8px;
-            border-top: 1px solid var(--muted-border);
-            font-size: 13px;
-            color: var(--text-light);
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .pagination {
-            display: inline-flex;
-            gap: 4px;
-            align-items: center;
-        }
-
-        .pagination button {
-            min-width: 28px;
-            height: 28px;
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 8px 10px;
             border-radius: 8px;
             border: 1px solid var(--muted-border);
-            background: #fff;
-            font-size: 13px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            /* important for icon centering */
-            align-items: center;
-            /* vertical center */
-            justify-content: center;
-            /* horizontal center */
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color .18s ease, box-shadow .18s ease, background-color .2s ease;
         }
 
-        .pagination button i {
-            font-size: 12px;
-            /* tweak if you want bigger arrows */
-        }
-
-        .pagination button:hover {
-            background: #f1f5f9;
-        }
-
-        .pagination button.active-page {
-            background: var(--primary-2);
-            color: #fff;
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
             border-color: var(--primary-2);
+            box-shadow: 0 0 0 1px rgba(66, 165, 245, 0.25);
+            background-color: #f9fcff;
         }
 
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .hint-text {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .readonly-field {
+            background-color: #f9fafb;
+        }
 
         /* ---------- RESPONSIVE ----------- */
 
@@ -759,11 +637,6 @@
             .current-date {
                 display: none;
             }
-
-            .filters-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
         }
 
         @media (max-width: 768px) {
@@ -794,13 +667,9 @@
                 display: flex;
             }
 
-            .filters-left,
-            .filters-right {
-                width: 100%;
-            }
-
-            .filters-right {
-                justify-content: flex-start;
+            .form-grid,
+            .form-grid-3 {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -813,38 +682,10 @@
                 font-size: 20px;
             }
 
-            .filters-container {
+            .form-container {
                 padding: 16px;
             }
         }
-           /* Mobile layout: stack filters & buttons, full width */
-@media (max-width: 600px) {
-    .filters-container {
-        flex-direction: column;
-        align-items: stretch;          /* children take full width */
-    }
-
-    .filters-left,
-    .filters-right {
-        flex-direction: column;        /* stack items */
-        width: 100%;
-        gap: 8px;
-    }
-
-    .filters-left > *,
-    .filters-right > * {
-        width: 100%;                   /* each control full width */
-    }
-
-    .search-input {
-        min-width: 0;                  /* allow it to shrink on small screens */
-    }
-
-    .btn {
-        justify-content: center;       /* center text/icons in the button */
-    }
-}
-
     </style>
 </head>
 
@@ -859,7 +700,6 @@
             </div>
 
             <ul class="nav-menu">
-
                 <li class="nav-item">
                     <a href="index.html" class="nav-link">
                         <span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
@@ -867,28 +707,31 @@
                     </a>
                 </li>
 
-                <li class="nav-item nav-has-submenu open">
-                    <button class="nav-toggle" aria-expanded="true">
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
                         <span class="nav-icon"><i class="fa-solid fa-users"></i></span>
                         <span class="nav-text">Employees</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu" aria-hidden="false">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a href="employee_master.html" class="submenu-link">Employee Master Data</a></li>
-                        <li><a class="submenu-link active-submenu">Contact & Personal Info</a></li>
+                        <li><a href="employee_contact_personal_info.html" class="submenu-link">Contact & Personal
+                                Info</a></li>
                         <li><a href="employment_history.html" class="submenu-link">Employment History</a></li>
                         <li><a href="visa_pro_work.html" class="submenu-link">Visa and Pro Work</a></li>
                     </ul>
                 </li>
 
-                <li class="nav-item nav-has-submenu">
-                    <button class="nav-toggle">
+                <!-- Organization (active) -->
+                <li class="nav-item nav-has-submenu open">
+                    <button class="nav-toggle" aria-expanded="true">
                         <span class="nav-icon"><i class="fa-solid fa-building"></i></span>
                         <span class="nav-text">Organization</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu" aria-hidden="true">
-                        <li><a href="department_and_cost_ceneters.html" class="submenu-link">Departments & Cost Centers</a></li>
+                    <ul class="submenu" aria-hidden="false">
+                        <li><a href="department_and_cost_ceneters.html" class="submenu-link">Departments & Cost Centers</a>
+                        </li>
                         <li><a href="roles_and_permissions_listing.html" class="submenu-link">Roles & Permissions</a></li>
                         <li><a class="submenu-link">Policies</a></li>
                         <li><a class="submenu-link">Company Rules</a></li>
@@ -1115,370 +958,284 @@
             <div class="the_line"></div>
 
             <div class="page-title">
-                <h3>Employee Contact & Personal Info</h3>
-                <p class="subtitle">Manage employee personal details, contact information and emergency contacts.</p>
+                <h3>Add Department / Cost Center</h3>
+                <p class="subtitle">
+                    Define a new department, assign cost center codes and set budget allocations for planning.
+                </p>
             </div>
 
-            <!-- FILTERS BAR -->
-            <div class="filters-container">
-                <div class="filters-left">
-                    <div class="search-input">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <input type="text" id="searchInput" placeholder="Search by name, ID, email, phone...">
+            <!-- <div
+                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap;">
+              
+                <button type="button" class="btn btn-ghost"
+                    onclick="window.location.href='departments_cost_centers.html'">
+                    <i class="fa-solid fa-arrow-left-long"></i>
+                    Back to Departments
+                </button>
+            </div> -->
+
+            <!-- FORM CARD -->
+            <form class="form-container" id="deptForm">
+                <!-- Department Details -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-building"></i>
+                        Department Details
+                    </h2>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label required">Department Name</label>
+                            <input type="text" class="form-input" name="departmentName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Cost Center Code</label>
+                            <input type="text" class="form-input" name="costCenterCode" required
+                                placeholder="e.g. ENG-1001">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Department Code</label>
+                            <input type="text" class="form-input" name="departmentCode"
+                                placeholder="Internal short code (optional)">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Cost Group</label>
+                            <select class="form-select" name="costGroup" required>
+                                <option value="">Select Cost Group</option>
+                                <option value="Revenue">Revenue Generating</option>
+                                <option value="Support">Support Functions</option>
+                                <option value="Operations">Operations</option>
+                                <option value="Corporate">Corporate</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Location</label>
+                            <select class="form-select" name="location" required>
+                                <option value="">Select Location</option>
+                                <option value="Head Office - New York">Head Office - New York</option>
+                                <option value="Branch Office - California">Branch Office - California</option>
+                                <option value="Branch Office - Texas">Branch Office - Texas</option>
+                                <option value="Remote">Remote</option>
+                            </select>
+                        </div>
+
+                        <style>
+                            /* Make all text inputs and selects exactly the same height */
+                            .form-input,
+                            .form-select {
+                                padding: 8px 10px;
+                                border-radius: 8px;
+                                border: 1px solid var(--muted-border);
+                                font-family: 'Times New Roman', Times, serif;
+                                font-size: 14px;
+                                outline: none;
+                                transition: border-color .18s ease, box-shadow .18s ease, background-color .2s ease;
+                                height: 38px;
+                                /* <<< ensures equal height */
+                                box-sizing: border-box;
+                            }
+
+                            /* Searchable select (Department Head) */
+                            .searchable-select {
+                                position: relative;
+                                width: 100%;
+                            }
+
+                            .searchable-select .form-input {
+                                width: 100%;
+                                padding-right: 32px;
+                                /* space if you add an icon later */
+                            }
+
+                            .searchable-options {
+                                position: absolute;
+                                top: calc(100% + 4px);
+                                left: 0;
+                                right: 0;
+                                max-height: 180px;
+                                overflow-y: auto;
+                                background: #fff;
+                                border: 1px solid var(--muted-border);
+                                border-radius: 10px;
+                                box-shadow: var(--shadow);
+                                display: none;
+                                z-index: 50;
+                            }
+
+                            .searchable-options-item {
+                                padding: 8px 10px;
+                                font-size: 14px;
+                                cursor: pointer;
+                                transition: background-color 0.15s ease;
+                            }
+
+                            .searchable-options-item:hover {
+                                background: #f1f5f9;
+                            }
+                        </style>
+
+                        <div class="form-group">
+                            <label class="form-label">Department Head / Manager</label>
+
+                            <div class="searchable-select">
+                                <input type="text" class="form-input" id="deptHeadSearch"
+                                    placeholder="Search or select..." autocomplete="off">
+
+                                <div class="searchable-options" id="deptHeadOptions">
+                                    <div class="searchable-options-item" data-value="john_smith">John Smith</div>
+                                    <div class="searchable-options-item" data-value="emma_jones">Emma Jones</div>
+                                    <div class="searchable-options-item" data-value="michael_brown">Michael Brown</div>
+                                    <div class="searchable-options-item" data-value="sophia_williams">Sophia Williams
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="departmentHead" id="deptHeadValue">
+                            </div>
+
+                            <!-- <span class="hint-text">Start typing to quickly find a manager.</span> -->
+                        </div>
+
+                        <script>
+                            // Department Head searchable select
+                            (function () {
+                                const deptHeadSearch = document.getElementById("deptHeadSearch");
+                                const deptHeadOptions = document.getElementById("deptHeadOptions");
+                                const deptHeadValue = document.getElementById("deptHeadValue");
+
+                                if (!deptHeadSearch || !deptHeadOptions || !deptHeadValue) return;
+
+                                function openOptions() {
+                                    deptHeadOptions.style.display = "block";
+                                }
+
+                                function closeOptions() {
+                                    deptHeadOptions.style.display = "none";
+                                }
+
+                                deptHeadSearch.addEventListener("focus", openOptions);
+
+                                deptHeadSearch.addEventListener("input", () => {
+                                    const filter = deptHeadSearch.value.toLowerCase();
+                                    const options = deptHeadOptions.querySelectorAll(".searchable-options-item");
+
+                                    options.forEach(opt => {
+                                        const match = opt.innerText.toLowerCase().includes(filter);
+                                        opt.style.display = match ? "block" : "none";
+                                    });
+                                });
+
+                                deptHeadOptions.addEventListener("click", (e) => {
+                                    const item = e.target.closest(".searchable-options-item");
+                                    if (!item) return;
+
+                                    deptHeadSearch.value = item.innerText;
+                                    deptHeadValue.value = item.dataset.value || "";
+                                    closeOptions();
+                                });
+
+                                document.addEventListener("click", (e) => {
+                                    if (!e.target.closest(".searchable-select")) {
+                                        closeOptions();
+                                    }
+                                });
+                            })();
+                        </script>
+
+
+                        <div class="form-group">
+                            <label class="form-label">Parent Department</label>
+                            <select class="form-select" name="parentDepartment">
+                                <option value="">No Parent (Top-level)</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Operations">Operations</option>
+                                <option value="Corporate">Corporate</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Status</label>
+                            <select class="form-select" name="status" required>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Budget & Allocation -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                        Budget & Allocation
+                    </h2>
+
+                    <div class="form-grid-3">
+                        <div class="form-group">
+                            <label class="form-label required">Monthly Budget</label>
+                            <input type="number" min="0" step="0.01" class="form-input" name="monthlyBudget"
+                                id="monthlyBudget" required placeholder="e.g. 75000">
+                            <span class="hint-text">Enter planned spend per month.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Yearly Budget (Auto)</label>
+                            <input type="text" class="form-input readonly-field" name="yearlyBudget" id="yearlyBudget"
+                                readonly>
+                            <span class="hint-text">Calculated as monthly budget × 12.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Currency</label>
+                            <select class="form-select" name="currency">
+                                <option value="USD">USD ($)</option>
+                                <option value="EUR">EUR (€)</option>
+                                <option value="INR">INR (₹)</option>
+                                <option value="GBP">GBP (£)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Planned Headcount</label>
+                            <input type="number" min="0" class="form-input" name="plannedHeadcount"
+                                placeholder="e.g. 25">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Cost Allocation %</label>
+                            <input type="number" min="0" max="100" class="form-input" name="allocationPercent"
+                                placeholder="Default 100%">
+                            <span class="hint-text">If shared across multiple business units.</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Effective From</label>
+                            <input type="date" class="form-input" name="effectiveFrom">
+                        </div>
                     </div>
 
-                    <select id="filterDepartment" class="filter-select">
-                        <option value="">All Departments</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Marketing">Marketing</option>
-                        <option value="HR">HR</option>
-                        <option value="Sales">Sales</option>
-                        <option value="Finance">Finance</option>
-                    </select>
-
-                    <select id="filterLocation" class="filter-select">
-                        <option value="">All Locations</option>
-                        <option value="Head Office - New York">Head Office - New York</option>
-                        <option value="Branch Office - California">Branch Office - California</option>
-                        <option value="Branch Office - Texas">Branch Office - Texas</option>
-                        <option value="Remote">Remote</option>
-                    </select>
-                </div>
-
-                <div class="filters-right">
-                    <button class="btn btn-ghost" id="clearFiltersBtn">
-                        <i class="fa-solid fa-filter-circle-xmark"></i>
-                        Clear Filters
-                    </button>
-                    <button class="btn btn-primary" id="addContactBtn">
-                        <i class="fa-solid fa-user-plus"></i>
-                        Add Employee
-                    </button>
-                </div>
-            </div>
-
-            <!-- TABLE -->
-            <div class="table-container">
-                <div class="table-header-bar">
-                    <h4>Contact & Personal Information <span class="badge-pill" id="employeeCountBadge">Total: 8</span>
-                    </h4>
-                    <small>Key contact details and personal information for employees.</small>
-                </div>
-
-                <div class="data-table-wrapper">
-                    <table class="data-table" id="employeeTable">
-                        <thead>
-                            <tr>
-                                <th>Employee ID</th>
-                                <th>Employee</th>
-                                <th>Personal Email</th>
-                                <th>Phone Number</th>
-                                <th>Emergency Contact</th>
-                                <th>Address</th>
-                                <th>Location</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- SAMPLE ROWS -->
-                            <tr data-department="Engineering" data-location="Head Office - New York">
-                                <td>#EMP-1001</td>
-                                <td>
-                                    <div class="emp-name">John Smith</div>
-                                    <div class="emp-sub">Senior Software Engineer • Engineering</div>
-                                </td>
-                                <td>
-                                    <div>john.personal@example.com</div>
-                                    <div class="contact-sub">Company: john.smith@abctech.com</div>
-                                </td>
-                                <td>+1 555-0101</td>
-                                <td>
-                                    <div>Anna Smith (Spouse)</div>
-                                    <div class="contact-sub">+1 555-1101</div>
-                                </td>
-                                <td>
-                                    123 5th Ave, Manhattan
-                                    <div class="contact-sub">New York, NY 10001</div>
-                                </td>
-                                <td>Head Office - New York</td>
-                                <td>
-                                    <div class="table-actions">
-                                        <button class="icon-btn view" title="View Details">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                        <button class="icon-btn edit" title="Edit Contact Info">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="icon-btn delete" title="Delete Contact Info">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-department="Marketing" data-location="Branch Office - California">
-                                <td>#EMP-1002</td>
-                                <td>
-                                    <div class="emp-name">Sarah Johnson</div>
-                                    <div class="emp-sub">Marketing Specialist • Marketing</div>
-                                </td>
-                                <td>
-                                    <div>sarah.johnson.personal@gmail.com</div>
-                                    <div class="contact-sub">Company: sarah.johnson@abctech.com</div>
-                                </td>
-                                <td>+1 555-0202</td>
-                                <td>
-                                    <div>David Johnson (Brother)</div>
-                                    <div class="contact-sub">+1 555-1202</div>
-                                </td>
-                                <td>
-                                    45 Bayview Street
-                                    <div class="contact-sub">San Francisco, CA 94105</div>
-                                </td>
-                                <td>Branch Office - California</td>
-                                <td>
-                                    <div class="table-actions">
-                                        <button class="icon-btn view" title="View Details">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                        <button class="icon-btn edit" title="Edit Contact Info">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="icon-btn delete" title="Delete Contact Info">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-department="HR" data-location="Head Office - New York">
-                                <td>#EMP-1003</td>
-                                <td>
-                                    <div class="emp-name">Mike Davis</div>
-                                    <div class="emp-sub">HR Manager • HR</div>
-                                </td>
-                                <td>
-                                    <div>mike.davis.personal@yahoo.com</div>
-                                    <div class="contact-sub">Company: mike.davis@abctech.com</div>
-                                </td>
-                                <td>+1 555-0303</td>
-                                <td>
-                                    <div>Laura Davis (Spouse)</div>
-                                    <div class="contact-sub">+1 555-1303</div>
-                                </td>
-                                <td>
-                                    890 Park Lane
-                                    <div class="contact-sub">New York, NY 10009</div>
-                                </td>
-                                <td>Head Office - New York</td>
-                                <td>
-                                    <div class="table-actions">
-                                        <button class="icon-btn view" title="View Details">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                        <button class="icon-btn edit" title="Edit Contact Info">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="icon-btn delete" title="Delete Contact Info">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-department="Sales" data-location="Branch Office - Texas">
-                                <td>#EMP-1004</td>
-                                <td>
-                                    <div class="emp-name">Emily Carter</div>
-                                    <div class="emp-sub">Account Executive • Sales</div>
-                                </td>
-                                <td>
-                                    <div>emily.carter.personal@gmail.com</div>
-                                    <div class="contact-sub">Company: emily.carter@abctech.com</div>
-                                </td>
-                                <td>+1 555-0404</td>
-                                <td>
-                                    <div>James Carter (Father)</div>
-                                    <div class="contact-sub">+1 555-1404</div>
-                                </td>
-                                <td>
-                                    22 Longhorn Drive
-                                    <div class="contact-sub">Dallas, TX 75201</div>
-                                </td>
-                                <td>Branch Office - Texas</td>
-                                <td>
-                                    <div class="table-actions">
-                                        <button class="icon-btn view" title="View Details">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                        <button class="icon-btn edit" title="Edit Contact Info">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="icon-btn delete" title="Delete Contact Info">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-department="Engineering" data-location="Remote">
-                                <td>#EMP-1005</td>
-                                <td>
-                                    <div class="emp-name">Rahul Sharma</div>
-                                    <div class="emp-sub">DevOps Engineer • Engineering</div>
-                                </td>
-                                <td>
-                                    <div>rahul.sharma.personal@gmail.com</div>
-                                    <div class="contact-sub">Company: rahul.sharma@abctech.com</div>
-                                </td>
-                                <td>+91 98765 12345</td>
-                                <td>
-                                    <div>Rohit Sharma (Brother)</div>
-                                    <div class="contact-sub">+91 98765 54321</div>
-                                </td>
-                                <td>
-                                    14 MG Road
-                                    <div class="contact-sub">Bengaluru, KA 560001</div>
-                                </td>
-                                <td>Remote</td>
-                                <td>
-                                    <div class="table-actions">
-                                        <button class="icon-btn view" title="View Details">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                        <button class="icon-btn edit" title="Edit Contact Info">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="icon-btn delete" title="Delete Contact Info">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-department="Finance" data-location="Head Office - New York">
-                                <td>#EMP-1006</td>
-                                <td>
-                                    <div class="emp-name">Oliver Brown</div>
-                                    <div class="emp-sub">Financial Analyst • Finance</div>
-                                </td>
-                                <td>
-                                    <div>oliver.brown.personal@mail.com</div>
-                                    <div class="contact-sub">Company: oliver.brown@abctech.com</div>
-                                </td>
-                                <td>+1 555-0606</td>
-                                <td>
-                                    <div>Emma Brown (Sister)</div>
-                                    <div class="contact-sub">+1 555-1606</div>
-                                </td>
-                                <td>
-                                    77 Hudson Street
-                                    <div class="contact-sub">New York, NY 10013</div>
-                                </td>
-                                <td>Head Office - New York</td>
-                                <td>
-                                    <div class="table-actions">
-                                        <button class="icon-btn view" title="View Details">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                        <button class="icon-btn edit" title="Edit Contact Info">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="icon-btn delete" title="Delete Contact Info">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-department="Sales" data-location="Branch Office - California">
-                                <td>#EMP-1007</td>
-                                <td>
-                                    <div class="emp-name">Sophia Lee</div>
-                                    <div class="emp-sub">Sales Associate • Sales</div>
-                                </td>
-                                <td>
-                                    <div>sophia.lee.personal@gmail.com</div>
-                                    <div class="contact-sub">Company: sophia.lee@abctech.com</div>
-                                </td>
-                                <td>+1 555-0707</td>
-                                <td>
-                                    <div>Michael Lee (Father)</div>
-                                    <div class="contact-sub">+1 555-1707</div>
-                                </td>
-                                <td>
-                                    9 Sunset Boulevard
-                                    <div class="contact-sub">Los Angeles, CA 90001</div>
-                                </td>
-                                <td>Branch Office - California</td>
-                                <td>
-                                    <div class="table-actions">
-                                        <button class="icon-btn view" title="View Details">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                        <button class="icon-btn edit" title="Edit Contact Info">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="icon-btn delete" title="Delete Contact Info">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr data-department="HR" data-location="Remote">
-                                <td>#EMP-1008</td>
-                                <td>
-                                    <div class="emp-name">Priya Nair</div>
-                                    <div class="emp-sub">HR Executive • HR</div>
-                                </td>
-                                <td>
-                                    <div>priya.nair.personal@yahoo.com</div>
-                                    <div class="contact-sub">Company: priya.nair@abctech.com</div>
-                                </td>
-                                <td>+91 99887 66554</td>
-                                <td>
-                                    <div>Anil Nair (Father)</div>
-                                    <div class="contact-sub">+91 99887 11223</div>
-                                </td>
-                                <td>
-                                    21 Marine Drive
-                                    <div class="contact-sub">Kochi, KL 682001</div>
-                                </td>
-                                <td>Remote</td>
-                                <td>
-                                    <div class="table-actions">
-                                        <button class="icon-btn view" title="View Details">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
-                                        <button class="icon-btn edit" title="Edit Contact Info">
-                                            <i class="fa-solid fa-pen"></i>
-                                        </button>
-                                        <button class="icon-btn delete" title="Delete Contact Info">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="table-footer">
-                    <div id="tableInfo">Showing 1 to 8 of 8 employees</div>
-                    <div class="pagination">
-                        <button disabled title="Previous page">
-                            <i class="fa-solid fa-angle-left"></i>
-                        </button>
-                        <button class="active-page">1</button>
-                        <button disabled>2</button>
-                        <button disabled title="Next page">
-                            <i class="fa-solid fa-angle-right"></i>
-                        </button>
+                    <div class="form-group full-width" style="margin-top:14px;">
+                        <label class="form-label">Notes / Description</label>
+                        <textarea class="form-textarea" name="notes"
+                            placeholder="Additional information about this department or cost center, budget assumptions, etc."></textarea>
                     </div>
-
                 </div>
-            </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="resetBtn">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-check"></i>
+                        Save Department
+                    </button>
+                </div>
+            </form>
         </main>
     </div>
 
@@ -1490,7 +1247,6 @@
             const menuBtn = document.getElementById('menuBtn');
             const overlay = document.getElementById('sidebarOverlay');
 
-            // Submenu toggle
             const toggles = document.querySelectorAll('.nav-toggle');
             toggles.forEach(btn => {
                 const li = btn.closest('.nav-has-submenu');
@@ -1587,76 +1343,40 @@
             });
         })();
 
-        // Simple client-side search + filter
-        const searchInput = document.getElementById('searchInput');
-        const filterDepartment = document.getElementById('filterDepartment');
-        const filterLocation = document.getElementById('filterLocation');
-        const employeeTable = document.getElementById('employeeTable');
-        const employeeCountBadge = document.getElementById('employeeCountBadge');
-        const tableInfo = document.getElementById('tableInfo');
-        const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+        // Add Department / Cost Center form logic
+        const deptForm = document.getElementById('deptForm');
+        const resetBtn = document.getElementById('resetBtn');
+        const monthlyBudgetInput = document.getElementById('monthlyBudget');
+        const yearlyBudgetInput = document.getElementById('yearlyBudget');
 
-        function applyFilters() {
-            const rows = employeeTable.querySelectorAll('tbody tr');
-            const searchTerm = searchInput.value.trim().toLowerCase();
-            const deptFilter = filterDepartment.value;
-            const locationFilter = filterLocation.value;
-
-            let visibleCount = 0;
-
-            rows.forEach(row => {
-                const rowText = row.textContent.toLowerCase();
-                const rowDept = row.getAttribute('data-department');
-                const rowLocation = row.getAttribute('data-location');
-
-                const matchesSearch = !searchTerm || rowText.includes(searchTerm);
-                const matchesDept = !deptFilter || rowDept === deptFilter;
-                const matchesLocation = !locationFilter || rowLocation === locationFilter;
-
-                if (matchesSearch && matchesDept && matchesLocation) {
-                    row.style.display = '';
-                    visibleCount++;
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-
-            employeeCountBadge.textContent = 'Total: ' + visibleCount;
-            tableInfo.textContent = `Showing 1 to ${visibleCount} of ${rows.length} employees`;
+        function updateYearlyBudget() {
+            const value = parseFloat(monthlyBudgetInput.value);
+            if (!isNaN(value)) {
+                const yearly = value * 12;
+                yearlyBudgetInput.value = yearly.toFixed(2);
+            } else {
+                yearlyBudgetInput.value = "";
+            }
         }
 
-        if (searchInput) {
-            searchInput.addEventListener('input', applyFilters);
+        if (monthlyBudgetInput) {
+            monthlyBudgetInput.addEventListener('input', updateYearlyBudget);
         }
 
-        if (filterDepartment) {
-            filterDepartment.addEventListener('change', applyFilters);
-        }
-
-        if (filterLocation) {
-            filterLocation.addEventListener('change', applyFilters);
-        }
-
-        if (clearFiltersBtn) {
-            clearFiltersBtn.addEventListener('click', () => {
-                searchInput.value = '';
-                filterDepartment.value = '';
-                filterLocation.value = '';
-                applyFilters();
+        if (resetBtn && deptForm) {
+            resetBtn.addEventListener('click', () => {
+                deptForm.reset();
+                yearlyBudgetInput.value = "";
             });
         }
 
-        // Add / Update Contact Info button (navigate to your form page)
-        const addContactBtn = document.getElementById('addContactBtn');
-        if (addContactBtn) {
-            addContactBtn.addEventListener('click', () => {
-                // Change this to your actual Contact/Personal Info form page
-                window.location.href = 'add_employee.html';
+        if (deptForm) {
+            deptForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Replace this with your actual API call / save logic
+                alert('Department / Cost Center saved successfully (demo).');
             });
         }
-
-        // Initial count
-        applyFilters();
     </script>
 </body>
 
