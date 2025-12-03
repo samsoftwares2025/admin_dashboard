@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Add Employee - HR Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-muted: #f5f7fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-light: #464d52;
+            --primary-1: #2d78b5;
+            --primary-2: #42a5f5;
+            --accent: #1976d2;
+            --danger: #dc3545;
+            --success: #10b981;
+            --muted-border: #e9ecef;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --radius-lg: 12px;
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: var(--bg-muted);
+            color: var(--text);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        aside.sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
+            padding: 28px 0;
+            border-right: 1px solid var(--muted-border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        main.main {
+            flex: 1;
+            padding: 32px;
+            overflow: auto;
+            background: var(--bg-muted);
+        }
+
+        .logo-container {
+            padding: 0 24px 20px 24px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--muted-border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary-2), var(--primary-1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-right: 12px;
+            box-shadow: 0 4px 12px rgba(74, 156, 245, 0.18);
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 20px;
+            background: linear-gradient(135deg, var(--primary-1), #1f57ae);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-profile {
+            padding: 20px 24px;
+            border-top: 1px solid var(--muted-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background: linear-gradient(135deg, #9ed0fd, #4a9cf5);
+            font-weight: 700;
+        }
+
+        .user-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .user-info p {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 10px 20px;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            background: #eaf4ff;
+            color: var(--accent);
+            transform: translateX(1px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(90deg, #eaf4ff, #f1fbff);
+            color: var(--accent);
+            border-left: 3px solid var(--primary-2);
+        }
+
+        .nav-icon {
+            color: #05A6F0;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        .nav-toggle {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-weight: 620;
+            font-size: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: var(--transition);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .nav-toggle:hover {
+            background: #eaf4ff;
+            color: var(--accent);
+            transform: translateX(1px);
+        }
+
+        .nav-toggle .nav-icon {
+            margin-right: 10px;
+        }
+
+        .nav-caret {
+            margin-left: auto;
+            opacity: 0.6;
+            transition: transform 0.25s ease;
+            color: #05A6F0;
+        }
+
+        .nav-has-submenu.open .nav-caret {
+            transform: rotate(90deg);
+        }
+
+        .submenu {
+            list-style: none;
+            padding-left: 40px;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height .3s ease, opacity .25s ease;
+        }
+
+        .nav-has-submenu.open .submenu {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        .submenu-link {
+            display: block;
+            padding: 8px 10px;
+            margin: 4px 0;
+            font-size: 14px;
+            text-decoration: none;
+            color: var(--text-light);
+            border-radius: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .submenu-link:hover {
+            background: #f1f8ff;
+            transform: translateX(1px);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--muted-border);
+        }
+
+        .page-title h1 {
+            font-size: 26px;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Times New Roman', Times, serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-2), var(--primary-1));
+            color: #fff;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: var(--text);
+            border: 1px solid var(--muted-border);
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .form-container {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--muted-border);
+            max-width: 1200px;
+        }
+
+        .form-section {
+            margin-bottom: 32px;
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary-2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary-2);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .form-label.required::after {
+            content: " *";
+            color: var(--danger);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 12px 14px;
+            border: 1px solid var(--muted-border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Times New Roman', Times, serif;
+            transition: var(--transition);
+            background: #fff;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-2);
+            box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--muted-border);
+        }
+
+        .photo-upload {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .photo-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #e9ecef, #f8f9fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--muted-border);
+            overflow: hidden;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-preview i {
+            font-size: 40px;
+            color: var(--text-light);
+        }
+
+        .upload-btn {
+            padding: 10px 16px;
+            background: var(--primary-2);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .upload-btn:hover {
+            background: var(--primary-1);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid,
+            .form-grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            main.main {
+                padding: 20px;
+            }
+
+            .form-container {
+                padding: 20px;
+            }
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success-message.show {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <a href="#" class="logo">
+                    <div class="logo-icon">JD</div>
+                    <div class="logo-text">ABC Technologies</div>
+                </a>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item nav-has-submenu open">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-users"></i></span>
+                        <span class="nav-text">Employees</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a class="submenu-link">Employee Master Data</a></li>
+                        <li><a class="submenu-link">Contact & Personal Info</a></li>
+                        <li><a class="submenu-link">Employment History</a></li>
+                        <li><a class="submenu-link">Visa and Pro Work</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-building"></i></span>
+                        <span class="nav-text">Organization</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a class="submenu-link">Departments & Cost Centers</a></li>
+                        <li><a class="submenu-link">Roles & Permissions</a></li>
+                        <li><a class="submenu-link">Policies</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-user-tie"></i></span>
+                        <span class="nav-text">Recruitment & ATS</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu">
+                        <li><a class="submenu-link">Job Management</a></li>
+                        <li><a class="submenu-link">Candidate Management</a></li>
+                        <li><a class="submenu-link">Interview Management</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
+                        Settings
+                    </a>
+                </li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="user-avatar">JD</div>
+                <div class="user-info">
+                    <h4>John Doe</h4>
+                    <p>Admin • ID: #AD-2048</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="header">
+                <div class="page-title">
+                    <h1>Add New Employee</h1>
+                    <p>Fill in the employee details to create a new profile</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="window.history.back()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        Back to List
+                    </button>
+                </div>
+            </div>
+
+            <div class="success-message" id="successMessage">
+                <i class="fa-solid fa-check-circle"></i>
+                Employee added successfully!
+            </div>
+
+            <form class="form-container" id="employeeForm">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-user"></i>
+                        Personal Information
+                    </h2>
+                    
+                    <div class="form-group full-width">
+                        <div class="photo-upload">
+                            <div class="photo-preview" id="photoPreview">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div>
+                                <label for="photoUpload" class="upload-btn">
+                                    <i class="fa-solid fa-upload"></i> Upload Photo
+                                </label>
+                                <input type="file" id="photoUpload" class="file-input" accept="image/*">
+                                <p style="font-size: 12px; color: var(--text-light); margin-top: 8px;">
+                                    Recommended: Square image, max 2MB
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-grid" style="margin-top: 20px;">
+                        <div class="form-group">
+                            <label class="form-label required">First Name</label>
+                            <input type="text" class="form-input" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Last Name</label>
+                            <input type="text" class="form-input" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Date of Birth</label>
+                            <input type="date" class="form-input" name="dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Gender</label>
+                            <select class="form-select" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Personal Email</label>
+                            <input type="email" class="form-input" name="personalEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Phone Number</label>
+                            <input type="tel" class="form-input" name="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width" style="margin-top: 20px;">
+                        <label class="form-label required">Address</label>
+                        <textarea class="form-textarea" name="address" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Employment Details -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-briefcase"></i>
+                        Employment Details
+                    </h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label required">Employee ID</label>
+                            <input type="text" class="form-input" name="employeeId" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Company Email</label>
+                            <input type="email" class="form-input" name="companyEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Joining Date</label>
+                            <input type="date" class="form-input" name="joiningDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Employment Type</label>
+                            <select class="form-select" name="employmentType" required>
+                                <option value="">Select Type</option>
+                                <option value="fulltime">Full-Time</option>
+                                <option value="parttime">Part-Time</option>
+                                <option value="contract">Contract</option>
+                                <option value="intern">Intern</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Department</label>
+                            <select class="form-select" name="department" required>
+                                <option value="">Select Department</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="hr">HR</option>
+                                <option value="sales">Sales</option>
+                                <option value="finance">Finance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Designation</label>
+                            <input type="text" class="form-input" name="designation" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Reporting Manager</label>
+                            <select class="form-select" name="manager" required>
+                                <option value="">Select Manager</option>
+                                <option value="john">John Smith - Engineering Lead</option>
+                                <option value="sarah">Sarah Johnson - Marketing Director</option>
+                                <option value="mike">Mike Davis - HR Manager</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Work Location</label>
+                            <select class="form-select" name="location" required>
+                                <option value="">Select Location</option>
+                                <option value="hq">Head Office - New York</option>
+                                <option value="remote">Remote</option>
+                                <option value="branch1">Branch Office - California</option>
+                                <option value="branch2">Branch Office - Texas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compensation -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        Compensation Details
+                    </h2>
+                    <div class="form-grid-3">
+                        <div class="form-group">
+                            <label class="form-label required">Annual CTC</label>
+                            <input type="number" class="form-input" name="ctc" required placeholder="$">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Basic Salary</label>
+                            <input type="number" class="form-input" name="basicSalary" required placeholder="$">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Variable Pay</label>
+                            <input type="number" class="form-input" name="variablePay" placeholder="$">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Bank Name</label>
+                            <input type="text" class="form-input" name="bankName">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Account Number</label>
+                            <input type="text" class="form-input" name="accountNumber">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">IFSC Code</label>
+                            <input type="text" class="form-input" name="ifscCode">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-phone"></i>
+                        Emergency Contact
+                    </h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label required">Contact Name</label>
+                            <input type="text" class="form-input" name="emergencyName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Relationship</label>
+                            <input type="text" class="form-input" name="emergencyRelation" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required">Phone Number</label>
+                            <input type="tel" class="form-input" name="emergencyPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-input" name="emergencyEmail">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa-solid fa-check"></i>
+                        Add Employee
+                    </button>
+                </div>
+            </form>
+
+        </main>
+    </div>
+
+    <script>
+        // Sidebar toggle functionality
+        (function () {
+            const toggles = document.querySelectorAll('.nav-toggle');
+
+            toggles.forEach(btn => {
+                const li = btn.closest('.nav-has-submenu');
+                const submenu = li.querySelector('.submenu');
+
+                btn.addEventListener('click', (e) => {
+                    const isOpen = li.classList.toggle('open');
+                    btn.setAttribute('aria-expanded', String(isOpen));
+                    submenu.setAttribute('aria-hidden', String(!isOpen));
+
+                    document.querySelectorAll('.nav-has-submenu').forEach(other => {
+                        if (other !== li && other.classList.contains('open')) {
+                            other.classList.remove('open');
+                            const otherBtn = other.querySelector('.nav-toggle');
+                            const otherSub = other.querySelector('.submenu');
+                            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+                            if (otherSub) otherSub.setAttribute('aria-hidden', 'true');
+                        }
+                    });
+                });
+
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                        e.preventDefault();
+                        btn.click();
+                    }
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                const sidebar = document.querySelector('aside.sidebar');
+                if (!sidebar) return;
+                if (!sidebar.contains(e.target)) {
+                    document.querySelectorAll('.nav-has-submenu.open').forEach(openItem => {
+                        openItem.classList.remove('open');
+                        const b = openItem.querySelector('.nav-toggle');
+                        const s = openItem.querySelector('.submenu');
+                        if (b) b.setAttribute('aria-expanded', 'false');
+                        if (s) s.setAttribute('aria-hidden', 'true');
+                    });
+                }
+            });
+        })();
+
+        // Photo upload preview
+        document.getElementById('photoUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('photoPreview');
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Employee Photo">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form submission
+        document.getElementById('employeeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 3000);
+            
+            // Log form data (in real app, this would be sent to server)
+            const formData = new FormData(this);
+            console.log('Employee Data:', Object.fromEntries(formData));
+        });
+
+        // Reset form function
+        function resetForm() {
+            document.getElementById('employeeForm').reset();
+            document.getElementById('photoPreview').innerHTML = '<i class="fa-solid fa-user"></i>';
+        }
+    </script>
+
+</body>
+
+</html>
