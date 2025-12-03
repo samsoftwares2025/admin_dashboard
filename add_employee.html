@@ -155,12 +155,13 @@
             margin-bottom: 18px;
             gap: 12px;
             flex-wrap: wrap;
-                     
+
 
         }
+
         .the_line {
-   border-bottom: 1px solid var(--muted-border);
-               margin-bottom: 18px;
+            border-bottom: 1px solid var(--muted-border);
+            margin-bottom: 18px;
 
         }
 
@@ -172,16 +173,18 @@
         .page-title p {
             color: var(--text-light);
             font-size: 14px;
-                        margin-bottom: 6px;
+            margin-bottom: 6px;
 
         }
+
         .page-title h3 {
-                font-size: 19px;
-                margin-bottom: 2%;
-            }
-             .page-title p {
-                margin-bottom: 2%;
-            }
+            font-size: 19px;
+            margin-bottom: 2%;
+        }
+
+        .page-title p {
+            margin-bottom: 2%;
+        }
 
         .header-actions {
             display: flex;
@@ -699,11 +702,13 @@
                 font-size: 18px;
                 text-align: right;
             }
+
             .page-title h3 {
                 font-size: 15px;
                 margin-bottom: 2%;
             }
-             .page-title p {
+
+            .page-title p {
                 margin-bottom: 5%;
             }
 
@@ -733,15 +738,14 @@
             .page-title h1 {
                 font-size: 20px;
             }
-            
+
 
             .header {
                 flex-wrap: wrap;
             }
 
-           
+
         }
-        
     </style>
 </head>
 
@@ -758,7 +762,7 @@
             <ul class="nav-menu">
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="index.html" class="nav-link active">
                         <span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
                         Dashboard
                     </a>
@@ -771,10 +775,10 @@
                         <span class="nav-caret">▸</span>
                     </button>
                     <ul class="submenu">
-                        <li><a class="submenu-link">Employee Master Data</a></li>
-                        <li><a class="submenu-link">Contact & Personal Info</a></li>
-                        <li><a class="submenu-link">Employment History</a></li>
-                        <li><a class="submenu-link">Visa and Pro Work</a></li>
+                        <li><a href="employee_master.html" class="submenu-link">Employee Master Data</a></li>
+                        <li><a href="employee_contact_personal_info.html" class="submenu-link">Contact & Personal Info</a></li>
+                        <li><a href="employment_history.html" class="submenu-link">Employment History</a></li>
+                        <li><a href="visa_pro_work.html" class="submenu-link">Visa and Pro Work</a></li>
                     </ul>
                 </li>
 
@@ -970,11 +974,11 @@
                     </a>
                 </li>
 
-<button id="logoutBtn" class="nav-link logout-btn-mob" type="button" title="Log out"
-                        aria-label="Log out">
-                        <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
-                        Logout
-                    </button>
+                <button id="logoutBtn" class="nav-link logout-btn-mob" type="button" title="Log out"
+                    aria-label="Log out">
+                    <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    Logout
+                </button>
             </ul>
 
             <div class="user-profile">
@@ -988,7 +992,7 @@
 
         <main class="main">
             <div class="header">
-                
+
                 <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -1010,10 +1014,10 @@
                 </div>
             </div>
             <div class="the_line"></div>
- <div class="page-title">
-                    <h3>Add New Employee</h3>
-                    <p>Fill in the employee details to create a new profile</p>
-                </div>
+            <div class="page-title">
+                <h3>Add New Employee</h3>
+                <p>Fill in the employee details to create a new profile</p>
+            </div>
             <div class="success-message" id="successMessage">
                 <i class="fa-solid fa-check-circle"></i>
                 Employee added successfully!
@@ -1037,7 +1041,6 @@
                                     <i class="fa-solid fa-upload"></i> Upload Photo
                                 </label>
                                 <input type="file" id="photoUpload" class="file-input" accept="image/*">
-                                
                             </div>
                         </div>
                     </div>
@@ -1146,6 +1149,94 @@
                     </div>
                 </div>
 
+                <!-- Visa & Pro Work -->
+                <div class="form-section">
+                    <h2 class="section-title">
+                        <i class="fa-solid fa-passport"></i>
+                        Visa & Pro Work
+                    </h2>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label required">Citizenship / Nationality</label>
+                            <select class="form-select" name="citizenship" required>
+                                <option value="">Select Citizenship / Nationality</option>
+                                <option value="usa">United States</option>
+                                <option value="india">India</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="canada">Canada</option>
+                                <option value="germany">Germany</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Passport Number</label>
+                            <input type="text" class="form-input" name="passportNumber" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Visa / Permit Type</label>
+                            <select class="form-select" name="visaType" required>
+                                <option value="">Select Visa / Permit Type</option>
+                                <option value="h1b">H1B</option>
+                                <option value="l1">L1</option>
+                                <option value="b1b2">B1/B2</option>
+                                <option value="work_permit">Work Permit</option>
+                                <option value="ict">Intra-company Transfer</option>
+                                <option value="resident">Resident Permit</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Visa / Permit Number</label>
+                            <input type="text" class="form-input" name="visaNumber" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Country of Work (Visa)</label>
+                            <select class="form-select" name="visaCountry" required>
+                                <option value="">Select Country of Work</option>
+                                <option value="usa">United States</option>
+                                <option value="india">India</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="canada">Canada</option>
+                                <option value="germany">Germany</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Visa Issue Date</label>
+                            <input type="date" class="form-input" name="visaIssueDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Visa Expiry Date</label>
+                            <input type="date" class="form-input" name="visaExpiryDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label required">Visa Status</label>
+                            <select class="form-select" name="visaStatus" required>
+                                <option value="">Select Status</option>
+                                <option value="valid">Valid</option>
+                                <option value="expiring_soon">Expiring Soon</option>
+                                <option value="expired">Expired</option>
+                                <option value="applied">Applied</option>
+                                <option value="not_required">Not Required</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group full-width" style="margin-top: 20px;">
+                        <label class="form-label">Visa / Pro Work Notes</label>
+                        <textarea class="form-textarea" name="visaNotes" rows="3"
+                            placeholder="Any additional notes on visa processing, PRO work, dependents, renewal reminders, etc."></textarea>
+                    </div>
+                </div>
+
                 <!-- Compensation -->
                 <div class="form-section">
                     <h2 class="section-title">
@@ -1217,6 +1308,7 @@
                     </button>
                 </div>
             </form>
+
         </main>
     </div>
 
