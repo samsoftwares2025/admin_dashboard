@@ -3,9 +3,8 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>HR Dashboard - Add Employee</title>
+    <title>HR Dashboard - Employee Master Data</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
@@ -155,13 +154,11 @@
             margin-bottom: 18px;
             gap: 12px;
             flex-wrap: wrap;
-                     
-
         }
-        .the_line {
-   border-bottom: 1px solid var(--muted-border);
-               margin-bottom: 18px;
 
+        .the_line {
+            border-bottom: 1px solid var(--muted-border);
+            margin-bottom: 18px;
         }
 
         .page-title h1 {
@@ -172,16 +169,17 @@
         .page-title p {
             color: var(--text-light);
             font-size: 14px;
-                        margin-bottom: 6px;
-
+            margin-bottom: 6px;
         }
+
         .page-title h3 {
-                font-size: 19px;
-                margin-bottom: 2%;
-            }
-             .page-title p {
-                margin-bottom: 2%;
-            }
+            font-size: 19px;
+            margin-bottom: 2%;
+        }
+
+        .page-title p.subtitle {
+            margin-bottom: 2%;
+        }
 
         .header-actions {
             display: flex;
@@ -348,9 +346,10 @@
             transform: translateX(1px);
         }
 
-        canvas {
-            max-width: 100% !important;
-            display: block;
+        .submenu-link.active-submenu {
+            background: #eaf4ff;
+            color: var(--accent);
+            font-weight: 650;
         }
 
         .menu-btn {
@@ -464,6 +463,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
         }
 
         .btn-secondary {
@@ -482,173 +482,265 @@
             box-shadow: var(--shadow);
         }
 
-        .form-container {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: 32px;
-            box-shadow: var(--shadow);
+        .btn-primary:hover {
+            filter: brightness(1.03);
+            transform: translateY(1px);
+        }
+
+        .btn-ghost {
+            background: transparent;
             border: 1px solid var(--muted-border);
-            max-width: 1200px;
-            margin: 0 auto 32px auto;
-        }
-
-        .form-section {
-            margin-bottom: 32px;
-        }
-
-        .form-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--primary-2);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            color: var(--primary-2);
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .form-grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .form-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-
-        .form-label.required::after {
-            content: " *";
-            color: var(--danger);
-        }
-
-        .form-input,
-        .form-select,
-        .form-textarea {
-            padding: 12px 14px;
-            border: 1px solid var(--muted-border);
-            border-radius: 8px;
-            font-size: 14px;
-            font-family: 'Times New Roman', Times, serif;
-            transition: var(--transition);
-            background: #fff;
-        }
-
-        .form-input:focus,
-        .form-select:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--primary-2);
-            box-shadow: 0 0 0 3px rgba(66, 165, 245, 0.1);
-        }
-
-        .form-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 12px;
-            margin-top: 32px;
-            padding-top: 24px;
-            border-top: 1px solid var(--muted-border);
-            flex-wrap: wrap;
-        }
-
-        .photo-upload {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .photo-preview {
-            width: 120px;
-            height: 120px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #e9ecef, #f8f9fa);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed var(--muted-border);
-            overflow: hidden;
-        }
-
-        .photo-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .photo-preview i {
-            font-size: 40px;
             color: var(--text-light);
         }
 
-        .upload-btn {
-            padding: 10px 16px;
-            background: var(--primary-2);
-            color: #fff;
-            border: none;
+        .btn-ghost:hover {
+            background: #f1f5f9;
+        }
+
+        /* LISTING LAYOUT */
+
+        .filters-container {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--muted-border);
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filters-left,
+        .filters-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 10px 12px;
             border-radius: 8px;
-            cursor: pointer;
+            border: 1px solid var(--muted-border);
+            min-width: 220px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+        }
+
+        .search-input input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .filter-select {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border);
+            font-size: 14px;
+            font-family: 'Times New Roman', Times, serif;
+            background: #fff;
+            min-width: 160px;
+        }
+
+        .table-container {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--muted-border);
+            overflow: hidden;
+        }
+
+        .table-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .table-header-bar h4 {
+            font-size: 16px;
+        }
+
+        .badge-pill {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #e2e8f0;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-left: 4px;
+        }
+
+        .data-table-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid var(--muted-border);
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+            background: #fff;
+        }
+
+        table.data-table thead {
+            background: #f1f5f9;
+        }
+
+        table.data-table th,
+        table.data-table td {
+            padding: 10px 12px;
+            font-size: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--muted-border);
+            white-space: nowrap;
+        }
+
+        table.data-table th {
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        table.data-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .emp-name {
             font-weight: 600;
+        }
+
+        .emp-sub {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .status-pill {
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-active {
+            background: #e6f7f2;
+            color: var(--success);
+        }
+
+        .status-inactive {
+            background: #ffe6e9;
+            color: var(--danger);
+        }
+
+        .status-probation {
+            background: #fff7e6;
+            color: #c27c0e;
+        }
+
+        .table-actions {
+            display: inline-flex;
+            gap: 6px;
+        }
+
+        .icon-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border);
+            background: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
             transition: var(--transition);
         }
 
-        .upload-btn:hover {
-            background: var(--primary-1);
+        .icon-btn:hover {
+            background: #f1f5f9;
+            transform: translateY(1px);
         }
 
-        .file-input {
-            display: none;
+        .icon-btn.view {
+            color: var(--accent);
         }
 
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px 16px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
-            align-items: center;
-            gap: 10px;
+        .icon-btn.edit {
+            color: #c27c0e;
         }
+        .icon-btn.delete {
+            color: var(--danger);
+        }
+        
+        .icon-btn.delete:hover {
+            background: #ffe6e9;
+            border-color: #ffc2c9;
+        }
+        
 
-        .success-message.show {
+        .table-footer {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            margin-top: 8px;
+            border-top: 1px solid var(--muted-border);
+            font-size: 13px;
+            color: var(--text-light);
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
-        /* ----------- RESPONSIVE ------------ */
+  .pagination {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+}
+
+.pagination button {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 1px solid var(--muted-border);
+    background: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;           /* important for icon centering */
+    align-items: center;            /* vertical center */
+    justify-content: center;        /* horizontal center */
+}
+
+.pagination button i {
+    font-size: 12px;                /* tweak if you want bigger arrows */
+}
+
+.pagination button:hover {
+    background: #f1f5f9;
+}
+
+.pagination button.active-page {
+    background: var(--primary-2);
+    color: #fff;
+    border-color: var(--primary-2);
+}
+
+        /* ---------- RESPONSIVE ----------- */
 
         @media (max-width: 1200px) {
             main.main {
@@ -682,28 +774,25 @@
             .current-date {
                 display: none;
             }
+
+            .filters-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
         }
 
         @media (max-width: 768px) {
-
-            .form-grid,
-            .form-grid-3 {
-                grid-template-columns: 1fr;
-            }
-
-            .form-container {
-                padding: 20px;
-            }
-
             .page-title h1 {
                 font-size: 18px;
                 text-align: right;
             }
+
             .page-title h3 {
                 font-size: 15px;
                 margin-bottom: 2%;
             }
-             .page-title p {
+
+            .page-title p.subtitle {
                 margin-bottom: 5%;
             }
 
@@ -719,6 +808,15 @@
             .logout-btn-mob {
                 display: flex;
             }
+
+            .filters-left,
+            .filters-right {
+                width: 100%;
+            }
+
+            .filters-right {
+                justify-content: flex-start;
+            }
         }
 
         @media (max-width: 480px) {
@@ -726,22 +824,42 @@
                 padding: 16px;
             }
 
-            .form-container {
-                padding: 16px;
-            }
-
             .page-title h1 {
                 font-size: 20px;
             }
-            
 
-            .header {
-                flex-wrap: wrap;
+            .filters-container {
+                padding: 16px;
             }
-
-           
         }
-        
+        /* Mobile layout: stack filters & buttons, full width */
+@media (max-width: 600px) {
+    .filters-container {
+        flex-direction: column;
+        align-items: stretch;          /* children take full width */
+    }
+
+    .filters-left,
+    .filters-right {
+        flex-direction: column;        /* stack items */
+        width: 100%;
+        gap: 8px;
+    }
+
+    .filters-left > *,
+    .filters-right > * {
+        width: 100%;                   /* each control full width */
+    }
+
+    .search-input {
+        min-width: 0;                  /* allow it to shrink on small screens */
+    }
+
+    .btn {
+        justify-content: center;       /* center text/icons in the button */
+    }
+}
+
     </style>
 </head>
 
@@ -758,23 +876,23 @@
             <ul class="nav-menu">
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="index.html" class="nav-link">
                         <span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
                         Dashboard
                     </a>
                 </li>
 
-                <li class="nav-item nav-has-submenu">
-                    <button class="nav-toggle">
+                <li class="nav-item nav-has-submenu open">
+                    <button class="nav-toggle" aria-expanded="true">
                         <span class="nav-icon"><i class="fa-solid fa-users"></i></span>
                         <span class="nav-text">Employees</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
-                        <li><a class="submenu-link">Employee Master Data</a></li>
-                        <li><a class="submenu-link">Contact & Personal Info</a></li>
-                        <li><a class="submenu-link">Employment History</a></li>
-                        <li><a class="submenu-link">Visa and Pro Work</a></li>
+                    <ul class="submenu" aria-hidden="false">
+                        <li><a class="submenu-link active-submenu">Employee Master Data</a></li>
+                        <li><a href="employee_contact_personal_info.html" class="submenu-link">Contact & Personal Info</a></li>
+                        <li><a href="employment_history.html" class="submenu-link">Employment History</a></li>
+                        <li><a href="visa_pro_work.html" class="submenu-link">Visa and Pro Work</a></li>
                     </ul>
                 </li>
 
@@ -784,7 +902,7 @@
                         <span class="nav-text">Organization</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Departments & Cost Centers</a></li>
                         <li><a class="submenu-link">Roles & Permissions</a></li>
                         <li><a class="submenu-link">Policies</a></li>
@@ -799,7 +917,7 @@
                         <span class="nav-text">Recruitment & ATS</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Job Management</a></li>
                         <li><a class="submenu-link">Candidate Management</a></li>
                         <li><a class="submenu-link">Interview Management</a></li>
@@ -815,7 +933,7 @@
                         <span class="nav-text">Attendance</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Attendance</a></li>
                         <li><a class="submenu-link">Leave</a></li>
                         <li><a class="submenu-link">Timesheets</a></li>
@@ -829,7 +947,7 @@
                         <span class="nav-text">Payroll Management</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Payroll Setup</a></li>
                         <li><a class="submenu-link">Payroll Processing</a></li>
                         <li><a class="submenu-link">Payroll Output</a></li>
@@ -843,7 +961,7 @@
                         <span class="nav-text">Performance & Appraisals</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Goal & KPI Management</a></li>
                         <li><a class="submenu-link">Assessment</a></li>
                         <li><a class="submenu-link">Appraisal Cycles</a></li>
@@ -856,7 +974,7 @@
                         <span class="nav-text">Learning & Development</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Training Management</a></li>
                         <li><a class="submenu-link">e-Learning</a></li>
                         <li><a class="submenu-link">Skill Development</a></li>
@@ -869,7 +987,7 @@
                         <span class="nav-text">Employee Engagement</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Surveys & Feedback</a></li>
                         <li><a class="submenu-link">Recognition</a></li>
                         <li><a class="submenu-link">Communication</a></li>
@@ -882,7 +1000,7 @@
                         <span class="nav-text">Talent & Succession Planning</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Competency Framework</a></li>
                         <li><a class="submenu-link">Succession Planning</a></li>
                     </ul>
@@ -894,7 +1012,7 @@
                         <span class="nav-text">Benefits & Compensation</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Health & Insurance Plans</a></li>
                         <li><a class="submenu-link">Allowance Policies</a></li>
                         <li><a class="submenu-link">Bonus Planning</a></li>
@@ -908,7 +1026,7 @@
                         <span class="nav-text">Expense</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Expense Category</a></li>
                         <li><a class="submenu-link">Expenses</a></li>
                         <li><a class="submenu-link">Expense Claims</a></li>
@@ -921,7 +1039,7 @@
                         <span class="nav-text">Asset Management</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Fixed Assets</a></li>
                         <li><a class="submenu-link">Depreciation</a></li>
                     </ul>
@@ -933,7 +1051,7 @@
                         <span class="nav-text">Reporting & Analytics</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Attendance Reports</a></li>
                         <li><a class="submenu-link">Leave Trends</a></li>
                         <li><a class="submenu-link">Payroll Summary</a></li>
@@ -955,7 +1073,7 @@
                         <span class="nav-text">Loan / EMI / Advance Module</span>
                         <span class="nav-caret">▸</span>
                     </button>
-                    <ul class="submenu">
+                    <ul class="submenu" aria-hidden="true">
                         <li><a class="submenu-link">Employee Loan Request</a></li>
                         <li><a class="submenu-link">EMI Calculation</a></li>
                         <li><a class="submenu-link">EMI Auto Deduction</a></li>
@@ -970,11 +1088,10 @@
                     </a>
                 </li>
 
-<button id="logoutBtn" class="nav-link logout-btn-mob" type="button" title="Log out"
-                        aria-label="Log out">
-                        <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
-                        Logout
-                    </button>
+                <button id="logoutBtn" class="nav-link logout-btn-mob" type="button" title="Log out" aria-label="Log out">
+                    <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    Logout
+                </button>
             </ul>
 
             <div class="user-profile">
@@ -988,7 +1105,6 @@
 
         <main class="main">
             <div class="header">
-                
                 <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -1009,323 +1125,335 @@
                     </button>
                 </div>
             </div>
+
             <div class="the_line"></div>
- <div class="page-title">
-                    <h3>Add New Employee</h3>
-                    <p>Fill in the employee details to create a new profile</p>
-                </div>
-            <div class="success-message" id="successMessage">
-                <i class="fa-solid fa-check-circle"></i>
-                Employee added successfully!
+
+            <div class="page-title">
+                <h3>Employee Master Data</h3>
+                <p class="subtitle">View, filter and manage all employee records in one place.</p>
             </div>
 
-            <form class="form-container" id="employeeForm">
-                <!-- Personal Information -->
-                <div class="form-section">
-                    <h2 class="section-title">
-                        <i class="fa-solid fa-user"></i>
-                        Personal Information
-                    </h2>
-
-                    <div class="form-group full-width">
-                        <div class="photo-upload">
-                            <div class="photo-preview" id="photoPreview">
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <div>
-                                <label for="photoUpload" class="upload-btn">
-                                    <i class="fa-solid fa-upload"></i> Upload Photo
-                                </label>
-                                <input type="file" id="photoUpload" class="file-input" accept="image/*">
-                                
-                            </div>
-                        </div>
+            <!-- FILTERS BAR -->
+            <div class="filters-container">
+                <div class="filters-left">
+                    <div class="search-input">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchInput" placeholder="Search by name, ID, department...">
                     </div>
 
-                    <div class="form-grid" style="margin-top: 20px;">
-                        <div class="form-group">
-                            <label class="form-label required">First Name</label>
-                            <input type="text" class="form-input" name="firstName" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Last Name</label>
-                            <input type="text" class="form-input" name="lastName" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Date of Birth</label>
-                            <input type="date" class="form-input" name="dob" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Gender</label>
-                            <select class="form-select" name="gender" required>
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Personal Email</label>
-                            <input type="email" class="form-input" name="personalEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Phone Number</label>
-                            <input type="tel" class="form-input" name="phone" required>
-                        </div>
-                    </div>
+                    <select id="filterDepartment" class="filter-select">
+                        <option value="">All Departments</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="HR">HR</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Finance">Finance</option>
+                    </select>
 
-                    <div class="form-group full-width" style="margin-top: 20px;">
-                        <label class="form-label required">Address</label>
-                        <textarea class="form-textarea" name="address" required></textarea>
-                    </div>
+                    <select id="filterStatus" class="filter-select">
+                        <option value="">All Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Probation">Probation</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
                 </div>
 
-                <!-- Employment Details -->
-                <div class="form-section">
-                    <h2 class="section-title">
-                        <i class="fa-solid fa-briefcase"></i>
-                        Employment Details
-                    </h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label required">Employee ID</label>
-                            <input type="text" class="form-input" name="employeeId" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Company Email</label>
-                            <input type="email" class="form-input" name="companyEmail" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Joining Date</label>
-                            <input type="date" class="form-input" name="joiningDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Employment Type</label>
-                            <select class="form-select" name="employmentType" required>
-                                <option value="">Select Type</option>
-                                <option value="fulltime">Full-Time</option>
-                                <option value="parttime">Part-Time</option>
-                                <option value="contract">Contract</option>
-                                <option value="intern">Intern</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Department</label>
-                            <select class="form-select" name="department" required>
-                                <option value="">Select Department</option>
-                                <option value="engineering">Engineering</option>
-                                <option value="marketing">Marketing</option>
-                                <option value="hr">HR</option>
-                                <option value="sales">Sales</option>
-                                <option value="finance">Finance</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Designation</label>
-                            <input type="text" class="form-input" name="designation" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Reporting Manager</label>
-                            <select class="form-select" name="manager" required>
-                                <option value="">Select Manager</option>
-                                <option value="john">John Smith - Engineering Lead</option>
-                                <option value="sarah">Sarah Johnson - Marketing Director</option>
-                                <option value="mike">Mike Davis - HR Manager</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Work Location</label>
-                            <select class="form-select" name="location" required>
-                                <option value="">Select Location</option>
-                                <option value="hq">Head Office - New York</option>
-                                <option value="remote">Remote</option>
-                                <option value="branch1">Branch Office - California</option>
-                                <option value="branch2">Branch Office - Texas</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Compensation -->
-                <div class="form-section">
-                    <h2 class="section-title">
-                        <i class="fa-solid fa-money-bill-wave"></i>
-                        Compensation Details
-                    </h2>
-                    <div class="form-grid-3">
-                        <div class="form-group">
-                            <label class="form-label required">Annual CTC</label>
-                            <input type="number" class="form-input" name="ctc" required placeholder="$">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Basic Salary</label>
-                            <input type="number" class="form-input" name="basicSalary" required placeholder="$">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Variable Pay</label>
-                            <input type="number" class="form-input" name="variablePay" placeholder="$">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Bank Name</label>
-                            <input type="text" class="form-input" name="bankName">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Account Number</label>
-                            <input type="text" class="form-input" name="accountNumber">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">IFSC Code</label>
-                            <input type="text" class="form-input" name="ifscCode">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Emergency Contact -->
-                <div class="form-section">
-                    <h2 class="section-title">
-                        <i class="fa-solid fa-phone"></i>
-                        Emergency Contact
-                    </h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label required">Contact Name</label>
-                            <input type="text" class="form-input" name="emergencyName" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Relationship</label>
-                            <input type="text" class="form-input" name="emergencyRelation" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label required">Phone Number</label>
-                            <input type="tel" class="form-input" name="emergencyPhone" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email</label>
-                            <input type="email" class="form-input" name="emergencyEmail">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="resetForm()">
-                        <i class="fa-solid fa-rotate-left"></i>
-                        Reset
+                <div class="filters-right">
+                    <button class="btn btn-ghost" id="clearFiltersBtn">
+                        <i class="fa-solid fa-filter-circle-xmark"></i>
+                        Clear Filters
                     </button>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa-solid fa-check"></i>
+                    <button class="btn btn-primary" id="addEmployeeBtn">
+                        <i class="fa-solid fa-user-plus"></i>
                         Add Employee
                     </button>
                 </div>
-            </form>
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-container">
+                <div class="table-header-bar">
+                    <h4>Employee List <span class="badge-pill" id="employeeCountBadge">Total: 8</span></h4>
+                    <small>Showing key master data, click actions to view full profile.</small>
+                </div>
+
+                <div class="data-table-wrapper">
+                    <table class="data-table" id="employeeTable">
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Employee</th>
+                                <th>Department</th>
+                                <th>Designation</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Joining Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- SAMPLE ROWS -->
+                            <tr data-department="Engineering" data-status="Active">
+                                <td>#EMP-1001</td>
+                                <td>
+                                    <div class="emp-name">John Smith</div>
+                                    <div class="emp-sub">john.smith@abctech.com</div>
+                                </td>
+                                <td>Engineering</td>
+                                <td>Senior Software Engineer</td>
+                                <td>Head Office - New York</td>
+                                <td>
+                                    <span class="status-pill status-active">
+                                        <span class="dot">●</span> Active
+                                    </span>
+                                </td>
+                                <td>2022-03-15</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Profile">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                         <button class="icon-btn delete" title="Delete">
+                                             <i class="fa-solid fa-trash"></i>
+                                         </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="Marketing" data-status="Probation">
+                                <td>#EMP-1002</td>
+                                <td>
+                                    <div class="emp-name">Sarah Johnson</div>
+                                    <div class="emp-sub">sarah.johnson@abctech.com</div>
+                                </td>
+                                <td>Marketing</td>
+                                <td>Marketing Specialist</td>
+                                <td>Branch Office - California</td>
+                                <td>
+                                    <span class="status-pill status-probation">
+                                        <span class="dot">●</span> Probation
+                                    </span>
+                                </td>
+                                <td>2025-01-10</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Profile">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="icon-btn delete" title="Delete">
+                                             <i class="fa-solid fa-trash"></i>
+                                         </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="HR" data-status="Active">
+                                <td>#EMP-1003</td>
+                                <td>
+                                    <div class="emp-name">Mike Davis</div>
+                                    <div class="emp-sub">mike.davis@abctech.com</div>
+                                </td>
+                                <td>HR</td>
+                                <td>HR Manager</td>
+                                <td>Head Office - New York</td>
+                                <td>
+                                    <span class="status-pill status-active">
+                                        <span class="dot">●</span> Active
+                                    </span>
+                                </td>
+                                <td>2020-11-01</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Profile">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                         <button class="icon-btn delete" title="Delete">
+                                             <i class="fa-solid fa-trash"></i>
+                                         </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="Sales" data-status="Inactive">
+                                <td>#EMP-1004</td>
+                                <td>
+                                    <div class="emp-name">Emily Carter</div>
+                                    <div class="emp-sub">emily.carter@abctech.com</div>
+                                </td>
+                                <td>Sales</td>
+                                <td>Account Executive</td>
+                                <td>Branch Office - Texas</td>
+                                <td>
+                                    <span class="status-pill status-inactive">
+                                        <span class="dot">●</span> Inactive
+                                    </span>
+                                </td>
+                                <td>2019-08-20</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Profile">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                         <button class="icon-btn delete" title="Delete">
+                                             <i class="fa-solid fa-trash"></i>
+                                         </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="Engineering" data-status="Active">
+                                <td>#EMP-1005</td>
+                                <td>
+                                    <div class="emp-name">Rahul Sharma</div>
+                                    <div class="emp-sub">rahul.sharma@abctech.com</div>
+                                </td>
+                                <td>Engineering</td>
+                                <td>DevOps Engineer</td>
+                                <td>Remote</td>
+                                <td>
+                                    <span class="status-pill status-active">
+                                        <span class="dot">●</span> Active
+                                    </span>
+                                </td>
+                                <td>2021-05-12</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Profile">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                         <button class="icon-btn delete" title="Delete">
+                                             <i class="fa-solid fa-trash"></i>
+                                         </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="Finance" data-status="Active">
+                                <td>#EMP-1006</td>
+                                <td>
+                                    <div class="emp-name">Oliver Brown</div>
+                                    <div class="emp-sub">oliver.brown@abctech.com</div>
+                                </td>
+                                <td>Finance</td>
+                                <td>Financial Analyst</td>
+                                <td>Head Office - New York</td>
+                                <td>
+                                    <span class="status-pill status-active">
+                                        <span class="dot">●</span> Active
+                                    </span>
+                                </td>
+                                <td>2023-02-05</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Profile">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                         <button class="icon-btn delete" title="Delete">
+                                             <i class="fa-solid fa-trash"></i>
+                                         </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="Sales" data-status="Probation">
+                                <td>#EMP-1007</td>
+                                <td>
+                                    <div class="emp-name">Sophia Lee</div>
+                                    <div class="emp-sub">sophia.lee@abctech.com</div>
+                                </td>
+                                <td>Sales</td>
+                                <td>Sales Associate</td>
+                                <td>Branch Office - California</td>
+                                <td>
+                                    <span class="status-pill status-probation">
+                                        <span class="dot">●</span> Probation
+                                    </span>
+                                </td>
+                                <td>2025-10-01</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Profile">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                         <button class="icon-btn delete" title="Delete">
+                                             <i class="fa-solid fa-trash"></i>
+                                         </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="HR" data-status="Inactive">
+                                <td>#EMP-1008</td>
+                                <td>
+                                    <div class="emp-name">Priya Nair</div>
+                                    <div class="emp-sub">priya.nair@abctech.com</div>
+                                </td>
+                                <td>HR</td>
+                                <td>HR Executive</td>
+                                <td>Remote</td>
+                                <td>
+                                    <span class="status-pill status-inactive">
+                                        <span class="dot">●</span> Inactive
+                                    </span>
+                                </td>
+                                <td>2018-07-30</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Profile">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                         <button class="icon-btn delete" title="Delete">
+                                             <i class="fa-solid fa-trash"></i>
+                                         </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <div id="tableInfo">Showing 1 to 8 of 8 employees</div>
+                     <div class="pagination">
+                        <button disabled title="Previous page">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </button>
+                        <button class="active-page">1</button>
+                        <button disabled>2</button>
+                        <button disabled title="Next page">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 
     <div id="sidebarOverlay" class="sidebar-overlay" tabindex="-1" aria-hidden="true"></div>
-
-    <script>
-        // Chart color palette (safe if you later add canvases)
-        const colors = {
-            blueDark: '#2d78b5',
-            blueLight: '#8fc3e8',
-            accent1: '#58a3d7',
-            accent2: '#3b83b7',
-            muted: '#e9eef5'
-        };
-
-        // Only initialize charts if those canvases exist
-        const miniDonut = document.getElementById('miniDonut');
-        if (miniDonut) {
-            new Chart(miniDonut, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Engineering', 'Marketing', 'HR'],
-                    datasets: [{
-                        data: [120, 65, 60],
-                        backgroundColor: [colors.blueDark, colors.blueLight, '#dfe9f3'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: true,
-                    cutout: '70%',
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: false }
-                    }
-                }
-            });
-        }
-
-        const headCountChart = document.getElementById('headCountChart');
-        if (headCountChart) {
-            new Chart(headCountChart, {
-                type: 'bar',
-                data: {
-                    labels: ['Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov'],
-                    datasets: [{
-                        label: 'Active',
-                        data: [550, 152, 155, 158, 160, 162],
-                        backgroundColor: colors.blueDark,
-                        borderRadius: 6
-                    }, {
-                        label: 'Inactive',
-                        data: [12, 10, 9, 8, 7, 5],
-                        backgroundColor: '#B0BEC5',
-                        borderRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
-                        x: { grid: { display: false } }
-                    },
-                    plugins: {
-                        legend: { display: true, position: 'bottom' }
-                    }
-                }
-            });
-        }
-
-        const ctcChart = document.getElementById('ctcChart');
-        if (ctcChart) {
-            new Chart(ctcChart, {
-                type: 'bar',
-                data: {
-                    labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-                    datasets: [{
-                        type: 'bar',
-                        label: 'CTC',
-                        data: [70, 75, 72, 78, 76, 80],
-                        backgroundColor: '#D3D3D3',
-                        borderRadius: 6
-                    }, {
-                        type: 'line',
-                        label: 'Net Salary',
-                        data: [60, 62, 58, 63, 61, 65],
-                        borderColor: '#FFCA28',
-                        borderWidth: 3,
-                        tension: 0.4,
-                        pointRadius: 4,
-                        pointBackgroundColor: '#FFCA28'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
-                        x: { grid: { display: false } }
-                    },
-                    plugins: {
-                        legend: { display: true, position: 'bottom' }
-                    }
-                }
-            });
-        }
-    </script>
 
     <script>
         (function () {
@@ -1361,21 +1489,6 @@
                         btn.click();
                     }
                 });
-            });
-
-            // Close submenus when clicking outside sidebar
-            document.addEventListener('click', (e) => {
-                const sidebar = document.querySelector('aside.sidebar');
-                if (!sidebar) return;
-                if (!sidebar.contains(e.target)) {
-                    document.querySelectorAll('.nav-has-submenu.open').forEach(openItem => {
-                        openItem.classList.remove('open');
-                        const b = openItem.querySelector('.nav-toggle');
-                        const s = openItem.querySelector('.submenu');
-                        if (b) b.setAttribute('aria-expanded', 'false');
-                        if (s) s.setAttribute('aria-hidden', 'true');
-                    });
-                }
             });
 
             function openMobileSidebar() {
@@ -1445,40 +1558,76 @@
             });
         })();
 
-        // Photo upload preview
-        document.getElementById('photoUpload').addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const preview = document.getElementById('photoPreview');
-                    preview.innerHTML = `<img src="${e.target.result}" alt="Employee Photo">`;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+        // Simple client-side search + filter
+        const searchInput = document.getElementById('searchInput');
+        const filterDepartment = document.getElementById('filterDepartment');
+        const filterStatus = document.getElementById('filterStatus');
+        const employeeTable = document.getElementById('employeeTable');
+        const employeeCountBadge = document.getElementById('employeeCountBadge');
+        const tableInfo = document.getElementById('tableInfo');
+        const clearFiltersBtn = document.getElementById('clearFiltersBtn');
 
-        // Form submission
-        document.getElementById('employeeForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+        function applyFilters() {
+            const rows = employeeTable.querySelectorAll('tbody tr');
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const deptFilter = filterDepartment.value;
+            const statusFilter = filterStatus.value;
 
-            const successMsg = document.getElementById('successMessage');
-            successMsg.classList.add('show');
+            let visibleCount = 0;
 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            rows.forEach(row => {
+                const rowText = row.textContent.toLowerCase();
+                const rowDept = row.getAttribute('data-department');
+                const rowStatus = row.getAttribute('data-status');
 
-            setTimeout(() => {
-                successMsg.classList.remove('show');
-            }, 3000);
+                let matchesSearch = !searchTerm || rowText.includes(searchTerm);
+                let matchesDept = !deptFilter || rowDept === deptFilter;
+                let matchesStatus = !statusFilter || rowStatus === statusFilter;
 
-            const formData = new FormData(this);
-            console.log('Employee Data:', Object.fromEntries(formData));
-        });
+                if (matchesSearch && matchesDept && matchesStatus) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
 
-        function resetForm() {
-            document.getElementById('employeeForm').reset();
-            document.getElementById('photoPreview').innerHTML = '<i class="fa-solid fa-user"></i>';
+            employeeCountBadge.textContent = 'Total: ' + visibleCount;
+            tableInfo.textContent = `Showing 1 to ${visibleCount} of ${rows.length} employees`;
         }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', applyFilters);
+        }
+
+        if (filterDepartment) {
+            filterDepartment.addEventListener('change', applyFilters);
+        }
+
+        if (filterStatus) {
+            filterStatus.addEventListener('change', applyFilters);
+        }
+
+        if (clearFiltersBtn) {
+            clearFiltersBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                filterDepartment.value = '';
+                filterStatus.value = '';
+                applyFilters();
+            });
+        }
+
+        // Add Employee button (navigate to your Add Employee page)
+        const addEmployeeBtn = document.getElementById('addEmployeeBtn');
+        if (addEmployeeBtn) {
+            addEmployeeBtn.addEventListener('click', () => {
+                // Change this href to your actual Add Employee page path
+                window.location.href = 'add_employee.html';
+            });
+        }
+
+        // Initial count
+        applyFilters();
     </script>
 </body>
 

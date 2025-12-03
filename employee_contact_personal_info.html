@@ -1,0 +1,1663 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>HR Dashboard - Employee Contact & Personal Info</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .nav-icon {
+            color: #05A6F0;
+            font-size: 18px;
+            margin-right: 8px;
+        }
+
+        .nav-caret {
+            color: #05A6F0;
+        }
+
+        :root {
+            --bg-muted: #f5f7fa;
+            --card-bg: #ffffff;
+            --text: #2c3e50;
+            --text-light: #464d52;
+            --primary-1: #2d78b5;
+            --primary-2: #42a5f5;
+            --accent: #1976d2;
+            --danger: #dc3545;
+            --success: #10b981;
+            --muted-border: #e9ecef;
+            --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --radius-lg: 12px;
+            --transition: all 0.25s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background: var(--bg-muted);
+            color: var(--text);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        aside.sidebar {
+            width: 260px;
+            background: linear-gradient(180deg, #f1f5f9 0%, #f8fafc 100%);
+            padding: 28px 0;
+            border-right: 1px solid var(--muted-border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: transform 0.28s ease, box-shadow 0.2s ease;
+            z-index: 30;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        aside.sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        main.main {
+            flex: 1;
+            padding: 32px;
+            overflow: auto;
+            background: var(--bg-muted);
+        }
+
+        .logo-container {
+            padding: 0 24px 20px 24px;
+            margin-bottom: 18px;
+            border-bottom: 1px solid var(--muted-border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--primary-2), var(--primary-1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-right: 12px;
+            box-shadow: 0 4px 12px rgba(74, 156, 245, 0.18);
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 20px;
+            background: linear-gradient(135deg, var(--primary-1), #1f57ae);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .user-profile {
+            padding: 20px 24px;
+            border-top: 1px solid var(--muted-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            background: linear-gradient(135deg, #9ed0fd, #4a9cf5);
+            font-weight: 700;
+        }
+
+        .user-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .user-info p {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .the_line {
+            border-bottom: 1px solid var(--muted-border);
+            margin-bottom: 18px;
+        }
+
+        .page-title h1 {
+            font-size: 26px;
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .page-title h3 {
+            font-size: 19px;
+            margin-bottom: 2%;
+        }
+
+        .page-title p.subtitle {
+            margin-bottom: 2%;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .notification-btn {
+            position: relative;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: #f1f5f9;
+            border: 1px solid var(--muted-border);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .notification-btn:hover {
+            transform: translateY(1px);
+            box-shadow: var(--shadow);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--danger);
+            color: #fff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            box-shadow: 0 2px 6px rgba(220, 53, 69, 0.35);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.06);
+            }
+        }
+
+        .current-date {
+            padding: 10px 14px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            border: 1px solid var(--muted-border);
+            font-weight: 600;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 10px 20px;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            border-radius: 10px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            background: #eaf4ff;
+            color: var(--accent);
+            transform: translateX(1px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(90deg, #eaf4ff, #f1fbff);
+            color: var(--accent);
+            border-left: 3px solid var(--primary-2);
+        }
+
+        .nav-toggle {
+            display: flex;
+            align-items: center;
+            padding: 12px 14px;
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-weight: 620;
+            font-size: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: var(--transition);
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .nav-toggle:hover {
+            background: #eaf4ff;
+            color: var(--accent);
+            transform: translateX(1px);
+        }
+
+        .nav-toggle .nav-icon {
+            margin-right: 10px;
+        }
+
+        .nav-caret {
+            margin-left: auto;
+            opacity: 0.6;
+            transition: transform 0.25s ease;
+        }
+
+        .nav-has-submenu.open .nav-caret {
+            transform: rotate(90deg);
+        }
+
+        .submenu {
+            list-style: none;
+            padding-left: 40px;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height .3s ease, opacity .25s ease;
+        }
+
+        .nav-has-submenu.open .submenu {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        .submenu-link {
+            display: block;
+            padding: 8px 10px;
+            margin: 4px 0;
+            font-size: 14px;
+            text-decoration: none;
+            color: var(--text-light);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .submenu-link:hover {
+            background: #f1f8ff;
+            transform: translateX(1px);
+        }
+
+        .submenu-link.active-submenu {
+            background: #eaf4ff;
+            color: var(--accent);
+            font-weight: 650;
+        }
+
+        .menu-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: #ffffff;
+            border: 1px solid var(--muted-border);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .menu-btn:focus {
+            outline: 2px solid var(--primary-2);
+            outline-offset: 2px;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 25;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .sidebar.mobile-open {
+            transform: translateX(0) !important;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .sidebar.mobile-visible {
+            transform: translateX(0) !important;
+        }
+
+        .logout-btn {
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            padding: 12px 14px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 10px;
+            color: var(--text-light);
+            transition: var(--transition);
+            font-family: 'Times New Roman', Times, serif;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .logout-btn:hover,
+        .logout-btn:focus {
+            background: #eaf4ff;
+            color: var(--accent);
+            transform: translateX(1px);
+            outline: none;
+        }
+
+        .logout-btn,
+        .logout-btn .nav-icon i {
+            color: #dc3545 !important;
+        }
+
+        .logout-btn-mob {
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            padding: 12px 14px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 10px;
+            color: var(--text-light);
+            transition: var(--transition);
+            font-family: 'Times New Roman', Times, serif;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logout-btn-mob:hover,
+        .logout-btn-mob:focus {
+            background: #eaf4ff;
+            color: var(--accent);
+            transform: translateX(1px);
+            outline: none;
+        }
+
+        .logout-btn-mob,
+        .logout-btn-mob .nav-icon i {
+            color: #dc3545 !important;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Times New Roman', Times, serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: var(--text);
+            border: 1px solid var(--muted-border);
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-2), var(--primary-1));
+            color: #fff;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.03);
+            transform: translateY(1px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--muted-border);
+            color: var(--text-light);
+        }
+
+        .btn-ghost:hover {
+            background: #f1f5f9;
+        }
+
+        /* LISTING LAYOUT */
+
+        .filters-container {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--muted-border);
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .filters-left,
+        .filters-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border);
+            min-width: 220px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #fff;
+        }
+
+        .search-input input {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .filter-select {
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border);
+            font-size: 14px;
+            font-family: 'Times New Roman', Times, serif;
+            background: #fff;
+            min-width: 160px;
+        }
+
+        .table-container {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--muted-border);
+            overflow: hidden;
+        }
+
+        .table-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .table-header-bar h4 {
+            font-size: 16px;
+        }
+
+        .badge-pill {
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: #e2e8f0;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-left: 4px;
+        }
+
+        .data-table-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid var(--muted-border);
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+            background: #fff;
+        }
+
+        table.data-table thead {
+            background: #f1f5f9;
+        }
+
+        table.data-table th,
+        table.data-table td {
+            padding: 10px 12px;
+            font-size: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--muted-border);
+            white-space: nowrap;
+        }
+
+        table.data-table th {
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        table.data-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .emp-name {
+            font-weight: 600;
+        }
+
+        .emp-sub {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .contact-sub {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .table-actions {
+            display: inline-flex;
+            gap: 6px;
+        }
+
+        .icon-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border);
+            background: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            background: #f1f5f9;
+            transform: translateY(1px);
+        }
+
+        .icon-btn.view {
+            color: var(--accent);
+        }
+
+        .icon-btn.edit {
+            color: #c27c0e;
+        }
+
+        .icon-btn.delete {
+            color: var(--danger);
+        }
+
+        .icon-btn.delete:hover {
+            background: #ffe6e9;
+            border-color: #ffc2c9;
+        }
+
+        .table-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            margin-top: 8px;
+            border-top: 1px solid var(--muted-border);
+            font-size: 13px;
+            color: var(--text-light);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pagination {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .pagination button {
+            min-width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border);
+            background: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            /* important for icon centering */
+            align-items: center;
+            /* vertical center */
+            justify-content: center;
+            /* horizontal center */
+        }
+
+        .pagination button i {
+            font-size: 12px;
+            /* tweak if you want bigger arrows */
+        }
+
+        .pagination button:hover {
+            background: #f1f5f9;
+        }
+
+        .pagination button.active-page {
+            background: var(--primary-2);
+            color: #fff;
+            border-color: var(--primary-2);
+        }
+
+
+        /* ---------- RESPONSIVE ----------- */
+
+        @media (max-width: 1200px) {
+            main.main {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .menu-btn {
+                display: inline-flex;
+            }
+
+            aside.sidebar {
+                transform: translateX(-110%);
+                position: fixed;
+                height: 100vh;
+                top: 0;
+                left: 0;
+                z-index: 40;
+            }
+
+            main.main {
+                padding: 20px;
+            }
+
+            .sidebar-overlay.show {
+                display: block;
+                opacity: 1;
+            }
+
+            .current-date {
+                display: none;
+            }
+
+            .filters-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-title h1 {
+                font-size: 18px;
+                text-align: right;
+            }
+
+            .page-title h3 {
+                font-size: 15px;
+                margin-bottom: 2%;
+            }
+
+            .page-title p.subtitle {
+                margin-bottom: 5%;
+            }
+
+            .header {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .logout-btn {
+                display: none;
+            }
+
+            .logout-btn-mob {
+                display: flex;
+            }
+
+            .filters-left,
+            .filters-right {
+                width: 100%;
+            }
+
+            .filters-right {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main.main {
+                padding: 16px;
+            }
+
+            .page-title h1 {
+                font-size: 20px;
+            }
+
+            .filters-container {
+                padding: 16px;
+            }
+        }
+           /* Mobile layout: stack filters & buttons, full width */
+@media (max-width: 600px) {
+    .filters-container {
+        flex-direction: column;
+        align-items: stretch;          /* children take full width */
+    }
+
+    .filters-left,
+    .filters-right {
+        flex-direction: column;        /* stack items */
+        width: 100%;
+        gap: 8px;
+    }
+
+    .filters-left > *,
+    .filters-right > * {
+        width: 100%;                   /* each control full width */
+    }
+
+    .search-input {
+        min-width: 0;                  /* allow it to shrink on small screens */
+    }
+
+    .btn {
+        justify-content: center;       /* center text/icons in the button */
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar" id="sidebar">
+            <div class="logo-container">
+                <a href="#" class="logo">
+                    <div class="logo-icon">ABC</div>
+                    <div class="logo-text">ABC Technologies</div>
+                </a>
+            </div>
+
+            <ul class="nav-menu">
+
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <span class="nav-icon"><i class="fa-solid fa-chart-line"></i></span>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item nav-has-submenu open">
+                    <button class="nav-toggle" aria-expanded="true">
+                        <span class="nav-icon"><i class="fa-solid fa-users"></i></span>
+                        <span class="nav-text">Employees</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="false">
+                        <li><a href="employee_master.html" class="submenu-link">Employee Master Data</a></li>
+                        <li><a class="submenu-link active-submenu">Contact & Personal Info</a></li>
+                        <li><a href="employment_history.html" class="submenu-link">Employment History</a></li>
+                        <li><a href="visa_pro_work.html" class="submenu-link">Visa and Pro Work</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-building"></i></span>
+                        <span class="nav-text">Organization</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Departments & Cost Centers</a></li>
+                        <li><a class="submenu-link">Roles & Permissions</a></li>
+                        <li><a class="submenu-link">Policies</a></li>
+                        <li><a class="submenu-link">Company Rules</a></li>
+                        <li><a class="submenu-link">Compliance Documentation</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-user-tie"></i></span>
+                        <span class="nav-text">Recruitment & ATS</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Job Management</a></li>
+                        <li><a class="submenu-link">Candidate Management</a></li>
+                        <li><a class="submenu-link">Interview Management</a></li>
+                        <li><a class="submenu-link">Offer & Hiring</a></li>
+                        <li><a class="submenu-link">Onboarding</a></li>
+                        <li><a class="submenu-link">Offboarding</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-clock"></i></span>
+                        <span class="nav-text">Attendance</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Attendance</a></li>
+                        <li><a class="submenu-link">Leave</a></li>
+                        <li><a class="submenu-link">Timesheets</a></li>
+                        <li><a class="submenu-link">Shift Management</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-money-check-dollar"></i></span>
+                        <span class="nav-text">Payroll Management</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Payroll Setup</a></li>
+                        <li><a class="submenu-link">Payroll Processing</a></li>
+                        <li><a class="submenu-link">Payroll Output</a></li>
+                        <li><a class="submenu-link">Compliance</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-chart-pie"></i></span>
+                        <span class="nav-text">Performance & Appraisals</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Goal & KPI Management</a></li>
+                        <li><a class="submenu-link">Assessment</a></li>
+                        <li><a class="submenu-link">Appraisal Cycles</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+                        <span class="nav-text">Learning & Development</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Training Management</a></li>
+                        <li><a class="submenu-link">e-Learning</a></li>
+                        <li><a class="submenu-link">Skill Development</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-heart"></i></span>
+                        <span class="nav-text">Employee Engagement</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Surveys & Feedback</a></li>
+                        <li><a class="submenu-link">Recognition</a></li>
+                        <li><a class="submenu-link">Communication</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-sitemap"></i></span>
+                        <span class="nav-text">Talent & Succession Planning</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Competency Framework</a></li>
+                        <li><a class="submenu-link">Succession Planning</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-gift"></i></span>
+                        <span class="nav-text">Benefits & Compensation</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Health & Insurance Plans</a></li>
+                        <li><a class="submenu-link">Allowance Policies</a></li>
+                        <li><a class="submenu-link">Bonus Planning</a></li>
+                        <li><a class="submenu-link">Increment Budgeting</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span>
+                        <span class="nav-text">Expense</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Expense Category</a></li>
+                        <li><a class="submenu-link">Expenses</a></li>
+                        <li><a class="submenu-link">Expense Claims</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-boxes-stacked"></i></span>
+                        <span class="nav-text">Asset Management</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Fixed Assets</a></li>
+                        <li><a class="submenu-link">Depreciation</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-chart-bar"></i></span>
+                        <span class="nav-text">Reporting & Analytics</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Attendance Reports</a></li>
+                        <li><a class="submenu-link">Leave Trends</a></li>
+                        <li><a class="submenu-link">Payroll Summary</a></li>
+                        <li><a class="submenu-link">Employee Analytics</a></li>
+                        <li><a class="submenu-link">Custom Reports</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon"><i class="fa-solid fa-users-gear"></i></span>
+                        Customer Management
+                    </a>
+                </li>
+
+                <li class="nav-item nav-has-submenu">
+                    <button class="nav-toggle">
+                        <span class="nav-icon"><i class="fa-solid fa-hand-holding-dollar"></i></span>
+                        <span class="nav-text">Loan / EMI / Advance Module</span>
+                        <span class="nav-caret">▸</span>
+                    </button>
+                    <ul class="submenu" aria-hidden="true">
+                        <li><a class="submenu-link">Employee Loan Request</a></li>
+                        <li><a class="submenu-link">EMI Calculation</a></li>
+                        <li><a class="submenu-link">EMI Auto Deduction</a></li>
+                        <li><a class="submenu-link">Loan Balance Status</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <span class="nav-icon"><i class="fa-solid fa-gear"></i></span>
+                        Settings
+                    </a>
+                </li>
+
+                <button id="logoutBtn" class="nav-link logout-btn-mob" type="button" title="Log out"
+                    aria-label="Log out">
+                    <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                    Logout
+                </button>
+            </ul>
+
+            <div class="user-profile">
+                <div class="user-avatar">AB</div>
+                <div class="user-info">
+                    <h4>Abhinav B</h4>
+                    <p>Admin • ID: #AD-2048</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="header">
+                <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div class="page-title">
+                    <h1>Welcome Abhinav B</h1>
+                </div>
+
+                <div class="header-actions">
+                    <button class="notification-btn" title="Notifications">
+                        🔔
+                        <span class="notification-badge">2</span>
+                    </button>
+                    <div class="current-date">Monday, Dec 1, 2025</div>
+                    <button id="logoutBtnHeader" class="logout-btn" type="button" title="Log out" aria-label="Log out">
+                        <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <div class="the_line"></div>
+
+            <div class="page-title">
+                <h3>Employee Contact & Personal Info</h3>
+                <p class="subtitle">Manage employee personal details, contact information and emergency contacts.</p>
+            </div>
+
+            <!-- FILTERS BAR -->
+            <div class="filters-container">
+                <div class="filters-left">
+                    <div class="search-input">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchInput" placeholder="Search by name, ID, email, phone...">
+                    </div>
+
+                    <select id="filterDepartment" class="filter-select">
+                        <option value="">All Departments</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="HR">HR</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Finance">Finance</option>
+                    </select>
+
+                    <select id="filterLocation" class="filter-select">
+                        <option value="">All Locations</option>
+                        <option value="Head Office - New York">Head Office - New York</option>
+                        <option value="Branch Office - California">Branch Office - California</option>
+                        <option value="Branch Office - Texas">Branch Office - Texas</option>
+                        <option value="Remote">Remote</option>
+                    </select>
+                </div>
+
+                <div class="filters-right">
+                    <button class="btn btn-ghost" id="clearFiltersBtn">
+                        <i class="fa-solid fa-filter-circle-xmark"></i>
+                        Clear Filters
+                    </button>
+                    <button class="btn btn-primary" id="addContactBtn">
+                        <i class="fa-solid fa-user-plus"></i>
+                        Add Employee
+                    </button>
+                </div>
+            </div>
+
+            <!-- TABLE -->
+            <div class="table-container">
+                <div class="table-header-bar">
+                    <h4>Contact & Personal Information <span class="badge-pill" id="employeeCountBadge">Total: 8</span>
+                    </h4>
+                    <small>Key contact details and personal information for employees.</small>
+                </div>
+
+                <div class="data-table-wrapper">
+                    <table class="data-table" id="employeeTable">
+                        <thead>
+                            <tr>
+                                <th>Employee ID</th>
+                                <th>Employee</th>
+                                <th>Personal Email</th>
+                                <th>Phone Number</th>
+                                <th>Emergency Contact</th>
+                                <th>Address</th>
+                                <th>Location</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- SAMPLE ROWS -->
+                            <tr data-department="Engineering" data-location="Head Office - New York">
+                                <td>#EMP-1001</td>
+                                <td>
+                                    <div class="emp-name">John Smith</div>
+                                    <div class="emp-sub">Senior Software Engineer • Engineering</div>
+                                </td>
+                                <td>
+                                    <div>john.personal@example.com</div>
+                                    <div class="contact-sub">Company: john.smith@abctech.com</div>
+                                </td>
+                                <td>+1 555-0101</td>
+                                <td>
+                                    <div>Anna Smith (Spouse)</div>
+                                    <div class="contact-sub">+1 555-1101</div>
+                                </td>
+                                <td>
+                                    123 5th Ave, Manhattan
+                                    <div class="contact-sub">New York, NY 10001</div>
+                                </td>
+                                <td>Head Office - New York</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit Contact Info">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="icon-btn delete" title="Delete Contact Info">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="Marketing" data-location="Branch Office - California">
+                                <td>#EMP-1002</td>
+                                <td>
+                                    <div class="emp-name">Sarah Johnson</div>
+                                    <div class="emp-sub">Marketing Specialist • Marketing</div>
+                                </td>
+                                <td>
+                                    <div>sarah.johnson.personal@gmail.com</div>
+                                    <div class="contact-sub">Company: sarah.johnson@abctech.com</div>
+                                </td>
+                                <td>+1 555-0202</td>
+                                <td>
+                                    <div>David Johnson (Brother)</div>
+                                    <div class="contact-sub">+1 555-1202</div>
+                                </td>
+                                <td>
+                                    45 Bayview Street
+                                    <div class="contact-sub">San Francisco, CA 94105</div>
+                                </td>
+                                <td>Branch Office - California</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit Contact Info">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="icon-btn delete" title="Delete Contact Info">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="HR" data-location="Head Office - New York">
+                                <td>#EMP-1003</td>
+                                <td>
+                                    <div class="emp-name">Mike Davis</div>
+                                    <div class="emp-sub">HR Manager • HR</div>
+                                </td>
+                                <td>
+                                    <div>mike.davis.personal@yahoo.com</div>
+                                    <div class="contact-sub">Company: mike.davis@abctech.com</div>
+                                </td>
+                                <td>+1 555-0303</td>
+                                <td>
+                                    <div>Laura Davis (Spouse)</div>
+                                    <div class="contact-sub">+1 555-1303</div>
+                                </td>
+                                <td>
+                                    890 Park Lane
+                                    <div class="contact-sub">New York, NY 10009</div>
+                                </td>
+                                <td>Head Office - New York</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit Contact Info">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="icon-btn delete" title="Delete Contact Info">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="Sales" data-location="Branch Office - Texas">
+                                <td>#EMP-1004</td>
+                                <td>
+                                    <div class="emp-name">Emily Carter</div>
+                                    <div class="emp-sub">Account Executive • Sales</div>
+                                </td>
+                                <td>
+                                    <div>emily.carter.personal@gmail.com</div>
+                                    <div class="contact-sub">Company: emily.carter@abctech.com</div>
+                                </td>
+                                <td>+1 555-0404</td>
+                                <td>
+                                    <div>James Carter (Father)</div>
+                                    <div class="contact-sub">+1 555-1404</div>
+                                </td>
+                                <td>
+                                    22 Longhorn Drive
+                                    <div class="contact-sub">Dallas, TX 75201</div>
+                                </td>
+                                <td>Branch Office - Texas</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit Contact Info">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="icon-btn delete" title="Delete Contact Info">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="Engineering" data-location="Remote">
+                                <td>#EMP-1005</td>
+                                <td>
+                                    <div class="emp-name">Rahul Sharma</div>
+                                    <div class="emp-sub">DevOps Engineer • Engineering</div>
+                                </td>
+                                <td>
+                                    <div>rahul.sharma.personal@gmail.com</div>
+                                    <div class="contact-sub">Company: rahul.sharma@abctech.com</div>
+                                </td>
+                                <td>+91 98765 12345</td>
+                                <td>
+                                    <div>Rohit Sharma (Brother)</div>
+                                    <div class="contact-sub">+91 98765 54321</div>
+                                </td>
+                                <td>
+                                    14 MG Road
+                                    <div class="contact-sub">Bengaluru, KA 560001</div>
+                                </td>
+                                <td>Remote</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit Contact Info">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="icon-btn delete" title="Delete Contact Info">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="Finance" data-location="Head Office - New York">
+                                <td>#EMP-1006</td>
+                                <td>
+                                    <div class="emp-name">Oliver Brown</div>
+                                    <div class="emp-sub">Financial Analyst • Finance</div>
+                                </td>
+                                <td>
+                                    <div>oliver.brown.personal@mail.com</div>
+                                    <div class="contact-sub">Company: oliver.brown@abctech.com</div>
+                                </td>
+                                <td>+1 555-0606</td>
+                                <td>
+                                    <div>Emma Brown (Sister)</div>
+                                    <div class="contact-sub">+1 555-1606</div>
+                                </td>
+                                <td>
+                                    77 Hudson Street
+                                    <div class="contact-sub">New York, NY 10013</div>
+                                </td>
+                                <td>Head Office - New York</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit Contact Info">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="icon-btn delete" title="Delete Contact Info">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="Sales" data-location="Branch Office - California">
+                                <td>#EMP-1007</td>
+                                <td>
+                                    <div class="emp-name">Sophia Lee</div>
+                                    <div class="emp-sub">Sales Associate • Sales</div>
+                                </td>
+                                <td>
+                                    <div>sophia.lee.personal@gmail.com</div>
+                                    <div class="contact-sub">Company: sophia.lee@abctech.com</div>
+                                </td>
+                                <td>+1 555-0707</td>
+                                <td>
+                                    <div>Michael Lee (Father)</div>
+                                    <div class="contact-sub">+1 555-1707</div>
+                                </td>
+                                <td>
+                                    9 Sunset Boulevard
+                                    <div class="contact-sub">Los Angeles, CA 90001</div>
+                                </td>
+                                <td>Branch Office - California</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit Contact Info">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="icon-btn delete" title="Delete Contact Info">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr data-department="HR" data-location="Remote">
+                                <td>#EMP-1008</td>
+                                <td>
+                                    <div class="emp-name">Priya Nair</div>
+                                    <div class="emp-sub">HR Executive • HR</div>
+                                </td>
+                                <td>
+                                    <div>priya.nair.personal@yahoo.com</div>
+                                    <div class="contact-sub">Company: priya.nair@abctech.com</div>
+                                </td>
+                                <td>+91 99887 66554</td>
+                                <td>
+                                    <div>Anil Nair (Father)</div>
+                                    <div class="contact-sub">+91 99887 11223</div>
+                                </td>
+                                <td>
+                                    21 Marine Drive
+                                    <div class="contact-sub">Kochi, KL 682001</div>
+                                </td>
+                                <td>Remote</td>
+                                <td>
+                                    <div class="table-actions">
+                                        <button class="icon-btn view" title="View Details">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                        <button class="icon-btn edit" title="Edit Contact Info">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </button>
+                                        <button class="icon-btn delete" title="Delete Contact Info">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <div id="tableInfo">Showing 1 to 8 of 8 employees</div>
+                    <div class="pagination">
+                        <button disabled title="Previous page">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </button>
+                        <button class="active-page">1</button>
+                        <button disabled>2</button>
+                        <button disabled title="Next page">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="sidebarOverlay" class="sidebar-overlay" tabindex="-1" aria-hidden="true"></div>
+
+    <script>
+        (function () {
+            const sidebarEl = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('menuBtn');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            // Submenu toggle
+            const toggles = document.querySelectorAll('.nav-toggle');
+            toggles.forEach(btn => {
+                const li = btn.closest('.nav-has-submenu');
+                const submenu = li.querySelector('.submenu');
+
+                btn.addEventListener('click', () => {
+                    const isOpen = li.classList.toggle('open');
+                    btn.setAttribute('aria-expanded', String(isOpen));
+                    submenu.setAttribute('aria-hidden', String(!isOpen));
+
+                    document.querySelectorAll('.nav-has-submenu').forEach(other => {
+                        if (other !== li && other.classList.contains('open')) {
+                            other.classList.remove('open');
+                            const otherBtn = other.querySelector('.nav-toggle');
+                            const otherSub = other.querySelector('.submenu');
+                            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+                            if (otherSub) otherSub.setAttribute('aria-hidden', 'true');
+                        }
+                    });
+                });
+
+                btn.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                        e.preventDefault();
+                        btn.click();
+                    }
+                });
+            });
+
+            function openMobileSidebar() {
+                sidebarEl.classList.add('mobile-open', 'mobile-visible');
+                overlay.classList.add('show');
+                overlay.setAttribute('aria-hidden', 'false');
+                if (menuBtn) menuBtn.setAttribute('aria-expanded', 'true');
+            }
+
+            function closeMobileSidebar() {
+                sidebarEl.classList.remove('mobile-open', 'mobile-visible');
+                overlay.classList.remove('show');
+                overlay.setAttribute('aria-hidden', 'true');
+                if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            function handleResize() {
+                if (window.innerWidth <= 900) {
+                    if (!sidebarEl.classList.contains('mobile-visible')) {
+                        sidebarEl.style.transform = 'translateX(-110%)';
+                    } else {
+                        sidebarEl.style.transform = 'translateX(0)';
+                    }
+                    sidebarEl.style.position = 'fixed';
+                    sidebarEl.style.height = '100vh';
+                    sidebarEl.style.top = '0';
+                    sidebarEl.style.left = '0';
+                    sidebarEl.style.zIndex = '40';
+                } else {
+                    sidebarEl.style.transform = '';
+                    sidebarEl.style.position = '';
+                    sidebarEl.style.height = '';
+                    sidebarEl.style.top = '';
+                    sidebarEl.style.left = '';
+                    sidebarEl.style.zIndex = '';
+                    overlay.classList.remove('show');
+                    overlay.setAttribute('aria-hidden', 'true');
+                    if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+                    sidebarEl.classList.remove('mobile-visible');
+                }
+            }
+
+            window.addEventListener('resize', handleResize);
+            handleResize();
+
+            if (menuBtn) {
+                menuBtn.addEventListener('click', () => {
+                    const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+                    if (expanded) {
+                        closeMobileSidebar();
+                    } else {
+                        openMobileSidebar();
+                    }
+                });
+            }
+
+            overlay.addEventListener('click', () => {
+                closeMobileSidebar();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' || e.key === 'Esc') {
+                    if (overlay.classList.contains('show')) {
+                        closeMobileSidebar();
+                    }
+                }
+            });
+        })();
+
+        // Simple client-side search + filter
+        const searchInput = document.getElementById('searchInput');
+        const filterDepartment = document.getElementById('filterDepartment');
+        const filterLocation = document.getElementById('filterLocation');
+        const employeeTable = document.getElementById('employeeTable');
+        const employeeCountBadge = document.getElementById('employeeCountBadge');
+        const tableInfo = document.getElementById('tableInfo');
+        const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+
+        function applyFilters() {
+            const rows = employeeTable.querySelectorAll('tbody tr');
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const deptFilter = filterDepartment.value;
+            const locationFilter = filterLocation.value;
+
+            let visibleCount = 0;
+
+            rows.forEach(row => {
+                const rowText = row.textContent.toLowerCase();
+                const rowDept = row.getAttribute('data-department');
+                const rowLocation = row.getAttribute('data-location');
+
+                const matchesSearch = !searchTerm || rowText.includes(searchTerm);
+                const matchesDept = !deptFilter || rowDept === deptFilter;
+                const matchesLocation = !locationFilter || rowLocation === locationFilter;
+
+                if (matchesSearch && matchesDept && matchesLocation) {
+                    row.style.display = '';
+                    visibleCount++;
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+
+            employeeCountBadge.textContent = 'Total: ' + visibleCount;
+            tableInfo.textContent = `Showing 1 to ${visibleCount} of ${rows.length} employees`;
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', applyFilters);
+        }
+
+        if (filterDepartment) {
+            filterDepartment.addEventListener('change', applyFilters);
+        }
+
+        if (filterLocation) {
+            filterLocation.addEventListener('change', applyFilters);
+        }
+
+        if (clearFiltersBtn) {
+            clearFiltersBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                filterDepartment.value = '';
+                filterLocation.value = '';
+                applyFilters();
+            });
+        }
+
+        // Add / Update Contact Info button (navigate to your form page)
+        const addContactBtn = document.getElementById('addContactBtn');
+        if (addContactBtn) {
+            addContactBtn.addEventListener('click', () => {
+                // Change this to your actual Contact/Personal Info form page
+                window.location.href = 'add_employee.html';
+            });
+        }
+
+        // Initial count
+        applyFilters();
+    </script>
+</body>
+
+</html>
