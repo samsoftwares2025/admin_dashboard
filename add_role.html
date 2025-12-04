@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>HR Dashboard - Departments & Cost Centers</title>
+    <title>HR Dashboard - Create Role</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -41,8 +41,7 @@
             padding: 0;
         }
 
-        html,
-        body {
+        html, body {
             height: 100%;
         }
 
@@ -490,251 +489,198 @@
             background: #f1f5f9;
         }
 
-        /* LISTING LAYOUT */
+        .hint-text {
+            font-size: 14px;
+            color: var(--text-light);
+        }
 
-        .filters-container {
+        /* ---------- FORM LAYOUT (same style as other forms) ----------- */
+
+        .form-container {
             background: var(--card-bg);
             border-radius: var(--radius-lg);
-            padding: 20px;
+            padding: 22px 22px 18px;
             box-shadow: var(--shadow);
             border: 1px solid var(--muted-border);
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
-            justify-content: space-between;
+            max-width: 1200px;
         }
 
-        .filters-left,
-        .filters-right {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .search-input {
-            padding: 10px 12px;
-            border-radius: 8px;
+        .form-section {
             border: 1px solid var(--muted-border);
-            min-width: 220px;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 14px;
-            display: flex;
+            border-radius: 12px;
+            padding: 18px 18px 12px;
+            margin-bottom: 16px;
+            background: #ffffff;
+        }
+
+        .section-title {
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #fff;
+            font-size: 19px;
+            margin-bottom: 14px;
+            color: var(--text);
         }
 
-        .search-input input {
-            border: none;
-            outline: none;
-            width: 100%;
-            font-size: 14px;
-            font-family: inherit;
+        .section-title i {
+            color: var(--primary-2);
         }
 
-        .filter-select {
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--muted-border);
-            font-size: 14px;
-            font-family: 'Times New Roman', Times, serif;
-            background: #fff;
-            min-width: 160px;
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px 18px;
         }
 
-        .table-container {
-            background: var(--card-bg);
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--muted-border);
-            overflow: hidden;
+        .form-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px 18px;
         }
 
-        .table-header-bar {
+        .form-group {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .table-header-bar h4 {
-            font-size: 16px;
-        }
-
-        .badge-pill {
-            padding: 4px 10px;
-            border-radius: 999px;
-            background: #e2e8f0;
-            font-size: 12px;
-            color: var(--text-light);
-            margin-left: 4px;
-        }
-
-        .data-table-wrapper {
-            overflow-x: auto;
-            border-radius: 10px;
-            border: 1px solid var(--muted-border);
-        }
-
-        table.data-table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 900px;
-            background: #fff;
-        }
-
-        table.data-table thead {
-            background: #f1f5f9;
-        }
-
-        table.data-table th,
-        table.data-table td {
-            padding: 10px 12px;
-            font-size: 14px;
-            text-align: left;
-            border-bottom: 1px solid var(--muted-border);
-            white-space: nowrap;
-        }
-
-        table.data-table th {
-            font-weight: 700;
-            color: var(--text-light);
-        }
-
-        table.data-table tbody tr:hover {
-            background: #f8fafc;
-        }
-
-        .emp-name {
-            font-weight: 600;
-        }
-
-        .emp-sub {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .contact-sub {
-            font-size: 12px;
-            color: var(--text-light);
-        }
-
-        .table-actions {
-            display: inline-flex;
+            flex-direction: column;
             gap: 6px;
         }
 
-        .icon-btn {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            border: 1px solid var(--muted-border);
-            background: #fff;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            cursor: pointer;
-            transition: var(--transition);
+        .form-group.full-width {
+            grid-column: 1 / -1;
         }
 
-        .icon-btn:hover {
-            background: #f1f5f9;
-            transform: translateY(1px);
+        .form-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
         }
 
-        .icon-btn.view {
-            color: var(--accent);
-        }
-
-        .icon-btn.edit {
-            color: #c27c0e;
-        }
-
-        .icon-btn.delete {
+        .form-label.required::after {
+            content: " *";
             color: var(--danger);
         }
-
-        .icon-btn.delete:hover {
-            background: #ffe6e9;
-            border-color: #ffc2c9;
+ 
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--muted-border);
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color .18s ease, box-shadow .18s ease, background-color .2s ease;
         }
 
-        .status-pill {
-            display: inline-flex;
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--primary-2);
+            box-shadow: 0 0 0 1px rgba(66, 165, 245, 0.25);
+            background-color: #f9fcff;
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        /* Permissions matrix */
+
+        .permissions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px 16px;
+        }
+
+        .permission-card {
+            border: 1px solid var(--muted-border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+        }
+
+        .permission-card-header {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            padding: 3px 10px;
-            border-radius: 999px;
-            font-size: 12px;
+            margin-bottom: 6px;
+
+        }
+
+        .permission-card-header span {
+            font-size: 16px;
             font-weight: 600;
         }
 
-        .status-onbudget {
-            background: #ecfdf3;
-            color: #166534;
-        }
-
-        .status-overbudget {
-            background: #fef2f2;
-            color: #b91c1c;
-        }
-
-        .status-underutilized {
+        .permission-chip {
+            padding: 2px 8px;
+            border-radius: 999px;
             background: #eff6ff;
             color: #1d4ed8;
         }
 
-        .table-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 12px;
-            margin-top: 8px;
-            border-top: 1px solid var(--muted-border);
-            font-size: 13px;
-            color: var(--text-light);
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .pagination {
-            display: inline-flex;
-            gap: 4px;
-            align-items: center;
-        }
-
-        .pagination button {
-            min-width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            border: 1px solid var(--muted-border);
-            background: #fff;
-            font-size: 13px;
+        .permission-select-all {
+            font-size: 14px;
+            border: none;
+            background: transparent;
+            color: var(--accent);
             cursor: pointer;
-            transition: var(--transition);
+            padding: 0;
+            text-decoration: underline;
+        }
+
+        .permission-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 4px 6px;
+            margin-top: 4px;
+        }
+
+        .permission-options label {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .permission-options input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+        }
+
+        .role-scope-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .scope-pill {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
+            gap: 9px;
+            padding: 9px 15px;
+            border-radius: 999px;
+            border: 1px solid var(--muted-border);
+            background: #f8fafc;
+            font-size: 15px;
         }
 
-        .pagination button i {
-            font-size: 12px;
+        .scope-pill input {
+            width: 13px;
+            height: 13px;
         }
 
-        .pagination button:hover {
-            background: #f1f5f9;
-        }
-
-        .pagination button.active-page {
-            background: var(--primary-2);
-            color: #fff;
-            border-color: var(--primary-2);
+        .readonly-field {
+            background-color: #f9fafb;
         }
 
         /* ---------- RESPONSIVE ----------- */
@@ -771,11 +717,6 @@
             .current-date {
                 display: none;
             }
-
-            .filters-container {
-                flex-direction: column;
-                align-items: flex-start;
-            }
         }
 
         @media (max-width: 768px) {
@@ -806,13 +747,13 @@
                 display: flex;
             }
 
-            .filters-left,
-            .filters-right {
-                width: 100%;
+            .form-grid,
+            .form-grid-3 {
+                grid-template-columns: 1fr;
             }
 
-            .filters-right {
-                justify-content: flex-start;
+            .permissions-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -825,36 +766,8 @@
                 font-size: 20px;
             }
 
-            .filters-container {
+            .form-container {
                 padding: 16px;
-            }
-        }
-
-        /* Mobile layout: stack filters & buttons, full width */
-        @media (max-width: 600px) {
-            .filters-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .filters-left,
-            .filters-right {
-                flex-direction: column;
-                width: 100%;
-                gap: 8px;
-            }
-
-            .filters-left > *,
-            .filters-right > * {
-                width: 100%;
-            }
-
-            .search-input {
-                min-width: 0;
-            }
-
-            .btn {
-                justify-content: center;
             }
         }
     </style>
@@ -900,7 +813,7 @@
                     <span class="nav-caret">▸</span>
                 </button>
                 <ul class="submenu" aria-hidden="false">
-                    <li><a href="department_and_cost_ceneters.html" class="submenu-link active-submenu">Departments & Cost Centers</a></li>
+                    <li><a href="departments_cost_centers.html" class="submenu-link">Departments & Cost Centers</a></li>
                     <li><a href="roles_and_permissions_listing.html" class="submenu-link">Roles & Permissions</a></li>
                     <li><a href="policies_listing.html" class="submenu-link">Policies</a></li>
                     <li><a class="submenu-link">Company Rules</a></li>
@@ -1114,7 +1027,7 @@
             <div class="header-actions">
                 <button class="notification-btn" title="Notifications">
                     🔔
-                    <span class="notification-badge">2</span>
+                    <span class="notification-badge">3</span>
                 </button>
                 <div class="current-date">Monday, Dec 1, 2025</div>
                 <button id="logoutBtnHeader" class="logout-btn" type="button" title="Log out" aria-label="Log out">
@@ -1127,286 +1040,256 @@
         <div class="the_line"></div>
 
         <div class="page-title">
-            <h3>Departments & Cost Centers</h3>
+            <h3>Create Role</h3>
             <p class="subtitle">
-                Group employees by departments and track cost center allocations for budgeting and planning.
+                Define a new role, assign scope, and configure module-level permissions.
             </p>
         </div>
 
-        <!-- FILTERS BAR -->
-        <div class="filters-container">
-            <div class="filters-left">
-                <div class="search-input">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="Search by department, code, manager...">
+        <!-- <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap;">
+            <span class="hint-text">
+                Fields marked with <span style="color:var(--danger)">*</span> are mandatory.
+            </span>
+            <button type="button" class="btn btn-ghost" onclick="window.location.href='roles_permissions.html'">
+                <i class="fa-solid fa-arrow-left-long"></i>
+                Back to Roles & Permissions
+            </button>
+        </div> -->
+
+        <!-- ROLE FORM -->
+        <form class="form-container" id="roleForm">
+            <!-- Role Details -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fa-solid fa-id-badge"></i>
+                    Role Details
+                </h2>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label required">Role Name</label>
+                        <input type="text" class="form-input" name="roleName" required placeholder="e.g. HR Manager">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Role Key / Code</label>
+                        <input type="text" class="form-input" name="roleCode" placeholder="e.g. HR_MANAGER">
+                        <span class="hint-text">Used internally for integrations or APIs (optional).</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Role Type</label>
+                        <select class="form-select" name="roleType" required>
+                            <option value="">Select Role Type</option>
+                            <option value="System">System Role</option>
+                            <option value="Department">Department Role</option>
+                            <option value="Custom">Custom Role</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Default Access Level</label>
+                        <select class="form-select" name="accessLevel" required>
+                            <option value="">Select Access Level</option>
+                            <option value="Full Access">Full Access</option>
+                            <option value="Limited Access">Limited Access</option>
+                            <option value="Read Only">Read Only</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label required">Status</label>
+                        <select class="form-select" name="status" required>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
                 </div>
 
-                <select id="filterLocation" class="filter-select">
-                    <option value="">All Locations</option>
-                    <option value="Head Office - New York">Head Office - New York</option>
-                    <option value="Branch Office - California">Branch Office - California</option>
-                    <option value="Branch Office - Texas">Branch Office - Texas</option>
-                    <option value="Remote">Remote</option>
-                </select>
-
-                <select id="filterGroup" class="filter-select">
-                    <option value="">All Cost Groups</option>
-                    <option value="Revenue">Revenue Generating</option>
-                    <option value="Support">Support Functions</option>
-                    <option value="Operations">Operations</option>
-                    <option value="Corporate">Corporate</option>
-                </select>
-
-                <select id="filterStatus" class="filter-select">
-                    <option value="">All Budget Status</option>
-                    <option value="On Budget">On Budget</option>
-                    <option value="Over Budget">Over Budget</option>
-                    <option value="Under Utilized">Under Utilized</option>
-                </select>
-            </div>
-
-            <div class="filters-right">
-                <button class="btn btn-ghost" id="clearFiltersBtn">
-                    <i class="fa-solid fa-filter-circle-xmark"></i>
-                    Clear Filters
-                </button>
-                <button class="btn btn-primary" id="addDeptBtn">
-                    <i class="fa-solid fa-plus"></i>
-                    Add Department / Cost Center
-                </button>
-            </div>
-        </div>
-
-        <!-- TABLE -->
-        <div class="table-container">
-            <div class="table-header-bar">
-                <h4>Departments & Cost Centers
-                    <span class="badge-pill" id="deptCountBadge">Total: 6</span>
-                </h4>
-                <small>Overview of departments, headcount and cost allocations.</small>
-            </div>
-
-            <div class="data-table-wrapper">
-                <table class="data-table" id="deptTable">
-                    <thead>
-                    <tr>
-                        <th>Department</th>
-                        <th>Cost Center Code</th>
-                        <th>Cost Group</th>
-                        <th>Location</th>
-                        <th>Headcount</th>
-                        <th>Monthly Budget</th>
-                        <th>Actual Spend (MTD)</th>
-                        <th>Variance</th>
-                        <th>Budget Status</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!-- SAMPLE ROWS -->
-                    <tr data-location="Head Office - New York" data-group="Revenue" data-status="On Budget">
-                        <td>
-                            <div class="emp-name">Engineering</div>
-                            <div class="emp-sub">Product Development & Platform</div>
-                        </td>
-                        <td>ENG-1001</td>
-                        <td>Revenue Generating</td>
-                        <td>Head Office - New York</td>
-                        <td>48</td>
-                        <td>$320,000</td>
-                        <td>$310,500</td>
-                        <td>+$9,500</td>
-                        <td>
-                            <span class="status-pill status-onbudget">On Budget</span>
-                        </td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Department">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr data-location="Head Office - New York" data-group="Support" data-status="Over Budget">
-                        <td>
-                            <div class="emp-name">HR</div>
-                            <div class="emp-sub">People Operations & Talent</div>
-                        </td>
-                        <td>HR-2001</td>
-                        <td>Support Functions</td>
-                        <td>Head Office - New York</td>
-                        <td>15</td>
-                        <td>$80,000</td>
-                        <td>$92,300</td>
-                        <td>- $12,300</td>
-                        <td>
-                            <span class="status-pill status-overbudget">Over Budget</span>
-                        </td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Department">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr data-location="Branch Office - California" data-group="Revenue" data-status="On Budget">
-                        <td>
-                            <div class="emp-name">Sales - West</div>
-                            <div class="emp-sub">Field & Inside Sales</div>
-                        </td>
-                        <td>SALES-W-3001</td>
-                        <td>Revenue Generating</td>
-                        <td>Branch Office - California</td>
-                        <td>26</td>
-                        <td>$150,000</td>
-                        <td>$149,200</td>
-                        <td>+$800</td>
-                        <td>
-                            <span class="status-pill status-onbudget">On Budget</span>
-                        </td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Department">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr data-location="Branch Office - Texas" data-group="Operations" data-status="Under Utilized">
-                        <td>
-                            <div class="emp-name">Operations - Support</div>
-                            <div class="emp-sub">Customer Success & Support</div>
-                        </td>
-                        <td>OPS-SUP-4001</td>
-                        <td>Operations</td>
-                        <td>Branch Office - Texas</td>
-                        <td>22</td>
-                        <td>$110,000</td>
-                        <td>$92,750</td>
-                        <td>+$17,250</td>
-                        <td>
-                            <span class="status-pill status-underutilized">Under Utilized</span>
-                        </td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Department">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr data-location="Head Office - New York" data-group="Corporate" data-status="Over Budget">
-                        <td>
-                            <div class="emp-name">Finance</div>
-                            <div class="emp-sub">Corporate Finance & Controlling</div>
-                        </td>
-                        <td>FIN-5001</td>
-                        <td>Corporate</td>
-                        <td>Head Office - New York</td>
-                        <td>12</td>
-                        <td>$95,000</td>
-                        <td>$104,600</td>
-                        <td>- $9,600</td>
-                        <td>
-                            <span class="status-pill status-overbudget">Over Budget</span>
-                        </td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Department">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr data-location="Remote" data-group="Support" data-status="Under Utilized">
-                        <td>
-                            <div class="emp-name">IT & Infrastructure</div>
-                            <div class="emp-sub">Systems, Security & Tools</div>
-                        </td>
-                        <td>IT-6001</td>
-                        <td>Support Functions</td>
-                        <td>Remote</td>
-                        <td>9</td>
-                        <td>$70,000</td>
-                        <td>$51,400</td>
-                        <td>+$18,600</td>
-                        <td>
-                            <span class="status-pill status-underutilized">Under Utilized</span>
-                        </td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Department">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="table-footer">
-                <div id="tableInfo">Showing 1 to 6 of 6 departments</div>
-                <div class="pagination">
-                    <button disabled title="Previous page">
-                        <i class="fa-solid fa-angle-left"></i>
-                    </button>
-                    <button class="active-page">1</button>
-                    <button disabled>2</button>
-                    <button disabled title="Next page">
-                        <i class="fa-solid fa-angle-right"></i>
-                    </button>
+                <div class="form-group full-width" style="margin-top:10px;">
+                    <label class="form-label">Role Description</label>
+                    <textarea class="form-textarea" name="description" placeholder="Describe the purpose of this role, typical users, and any notes."></textarea>
                 </div>
             </div>
-        </div>
+
+            <!-- Scope / Assignment -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fa-solid fa-sitemap"></i>
+                    Scope & Assignment
+                </h2>
+
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label class="form-label">Role Scope</label>
+                        <div class="role-scope-tags">
+                            <label class="scope-pill">
+                                <input type="checkbox" name="scopeCompany" checked>
+                                <span>Company-wide</span>
+                            </label>
+                            <label class="scope-pill">
+                                <input type="checkbox" name="scopeDepartment">
+                                <span>Specific Departments</span>
+                            </label>
+                            <label class="scope-pill">
+                                <input type="checkbox" name="scopeLocation">
+                                <span>Specific Locations</span>
+                            </label>
+                            <label class="scope-pill">
+                                <input type="checkbox" name="scopeProject">
+                                <span>Project / Team Based</span>
+                            </label>
+                        </div>
+                        <span class="hint-text">Choose where this role can be applied. You can fine-tune in user assignment screens.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Default Department</label>
+                        <select class="form-select" name="defaultDepartment">
+                            <option value="">Not Limited</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="HR">HR</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Sales">Sales</option>
+                            <option value="Operations">Operations</option>
+                        </select>
+                        <span class="hint-text">Optional default department used when assigning users.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Default Location</label>
+                        <select class="form-select" name="defaultLocation">
+                            <option value="">Not Limited</option>
+                            <option value="Head Office - New York">Head Office - New York</option>
+                            <option value="Branch Office - California">Branch Office - California</option>
+                            <option value="Branch Office - Texas">Branch Office - Texas</option>
+                            <option value="Remote">Remote</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Permissions -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    <i class="fa-solid fa-lock"></i>
+                    Permissions Matrix
+                </h2>
+
+                <p class="hint-text" style="margin-bottom:10px;">
+                    Configure what this role can do in each module. Use <strong>Select all</strong> to quickly grant all actions within a module.
+                </p>
+
+                <div class="permissions-grid">
+                    <!-- Employees -->
+                    <div class="permission-card" data-module="employees">
+                        <div class="permission-card-header">
+                            <span><i class="fa-solid fa-users"></i> Employees</span>
+                            <button type="button" class="permission-select-all">Select all</button>
+                        </div>
+                        <div class="permission-options">
+                            <label><input type="checkbox" name="perm_employees_view"> View</label>
+                            <label><input type="checkbox" name="perm_employees_create"> Create / Add</label>
+                            <label><input type="checkbox" name="perm_employees_edit"> Edit / Update</label>
+                            <label><input type="checkbox" name="perm_employees_delete"> Delete</label>
+                            <label><input type="checkbox" name="perm_employees_approve"> Approve / Manage</label>
+                        </div>
+                    </div>
+
+                    <!-- Attendance -->
+                    <div class="permission-card" data-module="attendance">
+                        <div class="permission-card-header">
+                            <span><i class="fa-solid fa-clock"></i> Attendance</span>
+                            <button type="button" class="permission-select-all">Select all</button>
+                        </div>
+                        <div class="permission-options">
+                            <label><input type="checkbox" name="perm_attendance_view"> View</label>
+                            <label><input type="checkbox" name="perm_attendance_create"> Create / Add</label>
+                            <label><input type="checkbox" name="perm_attendance_edit"> Edit / Update</label>
+                            <label><input type="checkbox" name="perm_attendance_delete"> Delete</label>
+                            <label><input type="checkbox" name="perm_attendance_approve"> Approve / Manage</label>
+                        </div>
+                    </div>
+
+                    <!-- Payroll -->
+                    <div class="permission-card" data-module="payroll">
+                        <div class="permission-card-header">
+                            <span><i class="fa-solid fa-money-check-dollar"></i> Payroll</span>
+                            <button type="button" class="permission-select-all">Select all</button>
+                        </div>
+                        <div class="permission-options">
+                            <label><input type="checkbox" name="perm_payroll_view"> View</label>
+                            <label><input type="checkbox" name="perm_payroll_create"> Create / Run</label>
+                            <label><input type="checkbox" name="perm_payroll_edit"> Edit / Adjust</label>
+                            <label><input type="checkbox" name="perm_payroll_delete"> Delete / Rollback</label>
+                            <label><input type="checkbox" name="perm_payroll_approve"> Approve / Finalize</label>
+                        </div>
+                    </div>
+
+                    <!-- Recruitment -->
+                    <div class="permission-card" data-module="recruitment">
+                        <div class="permission-card-header">
+                            <span><i class="fa-solid fa-user-tie"></i> Recruitment & ATS</span>
+                            <button type="button" class="permission-select-all">Select all</button>
+                        </div>
+                        <div class="permission-options">
+                            <label><input type="checkbox" name="perm_recruit_view"> View</label>
+                            <label><input type="checkbox" name="perm_recruit_create"> Create / Post Jobs</label>
+                            <label><input type="checkbox" name="perm_recruit_edit"> Edit / Update</label>
+                            <label><input type="checkbox" name="perm_recruit_delete"> Delete</label>
+                            <label><input type="checkbox" name="perm_recruit_approve"> Approve / Offer</label>
+                        </div>
+                    </div>
+
+                    <!-- Performance -->
+                    <div class="permission-card" data-module="performance">
+                        <div class="permission-card-header">
+                            <span><i class="fa-solid fa-chart-line"></i> Performance & Appraisals</span>
+                            <button type="button" class="permission-select-all">Select all</button>
+                        </div>
+                        <div class="permission-options">
+                            <label><input type="checkbox" name="perm_perf_view"> View</label>
+                            <label><input type="checkbox" name="perm_perf_create"> Create / Setup</label>
+                            <label><input type="checkbox" name="perm_perf_edit"> Edit / Update</label>
+                            <label><input type="checkbox" name="perm_perf_delete"> Delete</label>
+                            <label><input type="checkbox" name="perm_perf_approve"> Approve / Close</label>
+                        </div>
+                    </div>
+
+                    <!-- Reports -->
+                    <div class="permission-card" data-module="reports">
+                        <div class="permission-card-header">
+                            <span><i class="fa-solid fa-chart-bar"></i> Reporting & Analytics</span>
+                            <button type="button" class="permission-select-all">Select all</button>
+                        </div>
+                        <div class="permission-options">
+                            <label><input type="checkbox" name="perm_reports_view"> View</label>
+                            <label><input type="checkbox" name="perm_reports_export"> Export</label>
+                            <label><input type="checkbox" name="perm_reports_schedule"> Schedule</label>
+                            <label><input type="checkbox" name="perm_reports_edit"> Manage Dashboards</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="resetRoleForm">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    Reset
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-check"></i>
+                    Save Role
+                </button>
+            </div>
+        </form>
     </main>
 </div>
 
 <div id="sidebarOverlay" class="sidebar-overlay" tabindex="-1" aria-hidden="true"></div>
 
 <script>
+    // Sidebar / menu behaviour (same as other pages)
     (function () {
         const sidebarEl = document.getElementById('sidebar');
         const menuBtn = document.getElementById('menuBtn');
@@ -1508,73 +1391,37 @@
         });
     })();
 
-    // Departments & Cost Centers filters
-    const searchInput = document.getElementById('searchInput');
-    const filterLocation = document.getElementById('filterLocation');
-    const filterGroup = document.getElementById('filterGroup');
-    const filterStatus = document.getElementById('filterStatus');
-    const deptTable = document.getElementById('deptTable');
-    const deptCountBadge = document.getElementById('deptCountBadge');
-    const tableInfo = document.getElementById('tableInfo');
-    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+    // Role form logic
+    const roleForm = document.getElementById('roleForm');
+    const resetRoleForm = document.getElementById('resetRoleForm');
 
-    function applyFilters() {
-        const rows = deptTable.querySelectorAll('tbody tr');
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        const locFilter = filterLocation.value;
-        const groupFilter = filterGroup.value;
-        const statusFilter = filterStatus.value;
-
-        let visibleCount = 0;
-
-        rows.forEach(row => {
-            const rowText = row.textContent.toLowerCase();
-            const rowLoc = row.getAttribute('data-location');
-            const rowGroup = row.getAttribute('data-group');
-            const rowStatus = row.getAttribute('data-status');
-
-            const matchesSearch = !searchTerm || rowText.includes(searchTerm);
-            const matchesLoc = !locFilter || rowLoc === locFilter;
-            const matchesGroup = !groupFilter || rowGroup === groupFilter;
-            const matchesStatus = !statusFilter || rowStatus === statusFilter;
-
-            if (matchesSearch && matchesLoc && matchesGroup && matchesStatus) {
-                row.style.display = '';
-                visibleCount++;
-            } else {
-                row.style.display = 'none';
-            }
-        });
-
-        deptCountBadge.textContent = 'Total: ' + visibleCount;
-        tableInfo.textContent = `Showing 1 to ${visibleCount} of ${deptTable.querySelectorAll('tbody tr').length} departments`;
-    }
-
-    if (searchInput) searchInput.addEventListener('input', applyFilters);
-    if (filterLocation) filterLocation.addEventListener('change', applyFilters);
-    if (filterGroup) filterGroup.addEventListener('change', applyFilters);
-    if (filterStatus) filterStatus.addEventListener('change', applyFilters);
-
-    if (clearFiltersBtn) {
-        clearFiltersBtn.addEventListener('click', () => {
-            searchInput.value = '';
-            filterLocation.value = '';
-            filterGroup.value = '';
-            filterStatus.value = '';
-            applyFilters();
+    if (resetRoleForm && roleForm) {
+        resetRoleForm.addEventListener('click', () => {
+            roleForm.reset();
         });
     }
 
-    const addDeptBtn = document.getElementById('addDeptBtn');
-    if (addDeptBtn) {
-        addDeptBtn.addEventListener('click', () => {
-            // Replace with your actual Dept / Cost Center form page
-            window.location.href = 'add_department_costcenter.html';
+    if (roleForm) {
+        roleForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Replace with actual save / API call
+            alert('Role saved successfully (demo).');
         });
     }
 
-    // Initial count
-    applyFilters();
+    // Permissions "Select all" toggle per module
+    document.querySelectorAll('.permission-card').forEach(card => {
+        const btn = card.querySelector('.permission-select-all');
+        const checkboxes = card.querySelectorAll('input[type="checkbox"]');
+
+        if (!btn) return;
+
+        btn.addEventListener('click', () => {
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+        });
+    });
 </script>
+
 </body>
 </html>

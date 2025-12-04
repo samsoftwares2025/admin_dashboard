@@ -3,9 +3,10 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>HR Dashboard - Departments & Cost Centers</title>
+    <title>HR Dashboard - Organization Policies</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         .nav-icon {
@@ -596,7 +597,7 @@
         table.data-table th,
         table.data-table td {
             padding: 10px 12px;
-            font-size: 14px;
+            font-size: 16px;
             text-align: left;
             border-bottom: 1px solid var(--muted-border);
             white-space: nowrap;
@@ -615,14 +616,17 @@
             font-weight: 600;
         }
 
-        .emp-sub {
-            font-size: 12px;
-            color: var(--text-light);
-        }
+        
 
-        .contact-sub {
-            font-size: 12px;
-            color: var(--text-light);
+        .policy-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: #e5f2ff;
+            font-size: 11px;
+            color: #1d4ed8;
+            margin-right: 4px;
         }
 
         .table-actions {
@@ -675,19 +679,20 @@
             font-weight: 600;
         }
 
-        .status-onbudget {
+        /* Reuse palette for policy status */
+        .status-active {
             background: #ecfdf3;
             color: #166534;
         }
 
-        .status-overbudget {
-            background: #fef2f2;
-            color: #b91c1c;
+        .status-draft {
+            background: #fefce8;
+            color: #92400e;
         }
 
-        .status-underutilized {
-            background: #eff6ff;
-            color: #1d4ed8;
+        .status-archived {
+            background: #f3f4f6;
+            color: #374151;
         }
 
         .table-footer {
@@ -900,9 +905,9 @@
                     <span class="nav-caret">▸</span>
                 </button>
                 <ul class="submenu" aria-hidden="false">
-                    <li><a href="department_and_cost_ceneters.html" class="submenu-link active-submenu">Departments & Cost Centers</a></li>
+                    <li><a href="department_and_cost_ceneters.html" class="submenu-link">Departments & Cost Centers</a></li>
                     <li><a href="roles_and_permissions_listing.html" class="submenu-link">Roles & Permissions</a></li>
-                    <li><a href="policies_listing.html" class="submenu-link">Policies</a></li>
+                    <li><a href="policies_listing.html" class="submenu-link active-submenu">Policies</a></li>
                     <li><a class="submenu-link">Company Rules</a></li>
                     <li><a class="submenu-link">Compliance Documentation</a></li>
                 </ul>
@@ -1114,10 +1119,10 @@
             <div class="header-actions">
                 <button class="notification-btn" title="Notifications">
                     🔔
-                    <span class="notification-badge">2</span>
+                    <span class="notification-badge">3</span>
                 </button>
                 <div class="current-date">Monday, Dec 1, 2025</div>
-                <button id="logoutBtnHeader" class="logout-btn" type="button" title="Log out" aria-label="Log out">
+                <button id="logoutBtnHeader" class="logout-btn" type="button">
                     <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
                     Logout
                 </button>
@@ -1127,9 +1132,9 @@
         <div class="the_line"></div>
 
         <div class="page-title">
-            <h3>Departments & Cost Centers</h3>
+            <h3>Organization Policies</h3>
             <p class="subtitle">
-                Group employees by departments and track cost center allocations for budgeting and planning.
+                Central repository for all company policies with tracking of versions, status and applicability.
             </p>
         </div>
 
@@ -1138,257 +1143,209 @@
             <div class="filters-left">
                 <div class="search-input">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="searchInput" placeholder="Search by department, code, manager...">
+                    <input type="text" id="searchPolicy"
+                           placeholder="Search by policy name">
                 </div>
 
-                <select id="filterLocation" class="filter-select">
-                    <option value="">All Locations</option>
-                    <option value="Head Office - New York">Head Office - New York</option>
-                    <option value="Branch Office - California">Branch Office - California</option>
-                    <option value="Branch Office - Texas">Branch Office - Texas</option>
-                    <option value="Remote">Remote</option>
+                <select id="filterCategory" class="filter-select">
+                    <option value="">All Categories</option>
+                    <option value="HR & People">HR &amp; People</option>
+                    <option value="Leave & Attendance">Leave &amp; Attendance</option>
+                    <option value="Payroll & Compensation">Payroll &amp; Compensation</option>
+                    <option value="IT & Security">IT &amp; Security</option>
+                    <option value="Code of Conduct">Code of Conduct</option>
+                    <option value="Health & Safety">Health &amp; Safety</option>
                 </select>
 
-                <select id="filterGroup" class="filter-select">
-                    <option value="">All Cost Groups</option>
-                    <option value="Revenue">Revenue Generating</option>
-                    <option value="Support">Support Functions</option>
-                    <option value="Operations">Operations</option>
-                    <option value="Corporate">Corporate</option>
+                <select id="filterAudience" class="filter-select">
+                    <option value="">All Audiences</option>
+                    <option value="All Employees">All Employees</option>
+                    <option value="Managers Only">Managers Only</option>
+                    <option value="HR & Admin">HR &amp; Admin</option>
+                    <option value="Finance & Payroll">Finance &amp; Payroll</option>
                 </select>
 
                 <select id="filterStatus" class="filter-select">
-                    <option value="">All Budget Status</option>
-                    <option value="On Budget">On Budget</option>
-                    <option value="Over Budget">Over Budget</option>
-                    <option value="Under Utilized">Under Utilized</option>
+                    <option value="">All Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Draft">Draft</option>
+                    <option value="Archived">Archived</option>
                 </select>
             </div>
 
             <div class="filters-right">
-                <button class="btn btn-ghost" id="clearFiltersBtn">
+                <button class="btn btn-ghost" id="clearPolicyFilters">
                     <i class="fa-solid fa-filter-circle-xmark"></i>
                     Clear Filters
                 </button>
-                <button class="btn btn-primary" id="addDeptBtn">
+                <a href="add_policy.html" class="btn btn-primary" id="addPolicyBtn">
                     <i class="fa-solid fa-plus"></i>
-                    Add Department / Cost Center
-                </button>
+                    Add Policy
+                </a>
             </div>
         </div>
 
-        <!-- TABLE -->
+        <!-- POLICIES TABLE -->
         <div class="table-container">
             <div class="table-header-bar">
-                <h4>Departments & Cost Centers
-                    <span class="badge-pill" id="deptCountBadge">Total: 6</span>
+                <h4>Policies
+                    <span class="badge-pill" id="policyCountBadge">Total: 6</span>
                 </h4>
-                <small>Overview of departments, headcount and cost allocations.</small>
+                <small>Overview of all active, draft and archived company policies.</small>
             </div>
 
             <div class="data-table-wrapper">
-                <table class="data-table" id="deptTable">
+                <table class="data-table" id="policyTable">
                     <thead>
                     <tr>
-                        <th>Department</th>
-                        <th>Cost Center Code</th>
-                        <th>Cost Group</th>
-                        <th>Location</th>
-                        <th>Headcount</th>
-                        <th>Monthly Budget</th>
-                        <th>Actual Spend (MTD)</th>
-                        <th>Variance</th>
-                        <th>Budget Status</th>
+                        <th>Policy Name</th>
+                        <th>Category</th>
+                        <th>Applies To</th>
+                        <th>Owner</th>
+                        <th>Last Updated</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- SAMPLE ROWS -->
-                    <tr data-location="Head Office - New York" data-group="Revenue" data-status="On Budget">
+                    <!-- SAMPLE POLICIES -->
+
+                    <tr data-category="Code of Conduct"
+                        data-audience="All Employees"
+                        data-status="Active">
                         <td>
-                            <div class="emp-name">Engineering</div>
-                            <div class="emp-sub">Product Development & Platform</div>
+                            <div class="emp-name">Code of Conduct</div>
                         </td>
-                        <td>ENG-1001</td>
-                        <td>Revenue Generating</td>
-                        <td>Head Office - New York</td>
-                        <td>48</td>
-                        <td>$320,000</td>
-                        <td>$310,500</td>
-                        <td>+$9,500</td>
-                        <td>
-                            <span class="status-pill status-onbudget">On Budget</span>
-                        </td>
+                        <td>Code of Conduct</td>
+                        <td>All Employees</td>
+                        <td>HR &amp; Legal</td>
+                        <td>15 Oct 2025</td>
+                        <td><span class="status-pill status-active">Active</span></td>
                         <td>
                             <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
+                                <button class="icon-btn view" title="View Policy">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-                                <button class="icon-btn edit" title="Edit Department">
+                                <button class="icon-btn edit" title="Edit Policy">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button class="icon-btn delete" title="Delete Department">
+                                <button class="icon-btn delete" title="Archive Policy">
+                                    <i class="fa-solid fa-box-archive"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr data-category="Leave & Attendance"
+                        data-audience="All Employees"
+                        data-status="Active">
+                        <td>
+                            <div class="emp-name">Leave & Attendance Policy</div>
+                        </td>
+                        <td>Leave &amp; Attendance</td>
+                        <td>All Employees</td>
+                        <td>HR</td>
+                        <td>01 Sep 2025</td>
+                        <td><span class="status-pill status-active">Active</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="icon-btn view" title="View Policy">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="icon-btn edit" title="Edit Policy">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button class="icon-btn delete" title="Archive Policy">
+                                    <i class="fa-solid fa-box-archive"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr data-category="Payroll & Compensation"
+                        data-audience="Finance & Payroll"
+                        data-status="Active">
+                        <td>
+                            <div class="emp-name">Payroll Processing & Cut-off Policy</div>
+                        </td>
+                        <td>Payroll &amp; Compensation</td>
+                        <td>Finance &amp; Payroll</td>
+                        <td>Finance</td>
+                        <td>22 Aug 2025</td>
+                        <td><span class="status-pill status-active">Active</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="icon-btn view" title="View Policy">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="icon-btn edit" title="Edit Policy">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button class="icon-btn delete" title="Archive Policy">
+                                    <i class="fa-solid fa-box-archive"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr data-category="IT & Security"
+                        data-audience="All Employees"
+                        data-status="Draft">
+                        <td>
+                            <div class="emp-name">IT Usage & Data Security Policy</div>
+                        </td>
+                        <td>IT &amp; Security</td>
+                        <td>All Employees</td>
+                        <td>IT &amp; Security</td>
+                        <td>10 Nov 2025</td>
+                        <td><span class="status-pill status-draft">Draft</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <button class="icon-btn view" title="View Policy">
+                                    <i class="fa-solid fa-eye"></i>
+                                </button>
+                                <button class="icon-btn edit" title="Edit Policy">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button class="icon-btn delete" title="Delete Draft">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
 
-                    <tr data-location="Head Office - New York" data-group="Support" data-status="Over Budget">
+                    <tr data-category="Health & Safety"
+                        data-audience="All Employees"
+                        data-status="Active">
                         <td>
-                            <div class="emp-name">HR</div>
-                            <div class="emp-sub">People Operations & Talent</div>
+                            <div class="emp-name">Workplace Health & Safety Policy</div>
                         </td>
-                        <td>HR-2001</td>
-                        <td>Support Functions</td>
-                        <td>Head Office - New York</td>
-                        <td>15</td>
-                        <td>$80,000</td>
-                        <td>$92,300</td>
-                        <td>- $12,300</td>
-                        <td>
-                            <span class="status-pill status-overbudget">Over Budget</span>
-                        </td>
+                        <td>Health &amp; Safety</td>
+                        <td>All Employees</td>
+                        <td>Admin</td>
+                        <td>30 Jul 2025</td>
+                        <td><span class="status-pill status-active">Active</span></td>
                         <td>
                             <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
+                                <button class="icon-btn view" title="View Policy">
                                     <i class="fa-solid fa-eye"></i>
                                 </button>
-                                <button class="icon-btn edit" title="Edit Department">
+                                <button class="icon-btn edit" title="Edit Policy">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
+                                <button class="icon-btn delete" title="Archive Policy">
+                                    <i class="fa-solid fa-box-archive"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
 
-                    <tr data-location="Branch Office - California" data-group="Revenue" data-status="On Budget">
-                        <td>
-                            <div class="emp-name">Sales - West</div>
-                            <div class="emp-sub">Field & Inside Sales</div>
-                        </td>
-                        <td>SALES-W-3001</td>
-                        <td>Revenue Generating</td>
-                        <td>Branch Office - California</td>
-                        <td>26</td>
-                        <td>$150,000</td>
-                        <td>$149,200</td>
-                        <td>+$800</td>
-                        <td>
-                            <span class="status-pill status-onbudget">On Budget</span>
-                        </td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Department">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr data-location="Branch Office - Texas" data-group="Operations" data-status="Under Utilized">
-                        <td>
-                            <div class="emp-name">Operations - Support</div>
-                            <div class="emp-sub">Customer Success & Support</div>
-                        </td>
-                        <td>OPS-SUP-4001</td>
-                        <td>Operations</td>
-                        <td>Branch Office - Texas</td>
-                        <td>22</td>
-                        <td>$110,000</td>
-                        <td>$92,750</td>
-                        <td>+$17,250</td>
-                        <td>
-                            <span class="status-pill status-underutilized">Under Utilized</span>
-                        </td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Department">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr data-location="Head Office - New York" data-group="Corporate" data-status="Over Budget">
-                        <td>
-                            <div class="emp-name">Finance</div>
-                            <div class="emp-sub">Corporate Finance & Controlling</div>
-                        </td>
-                        <td>FIN-5001</td>
-                        <td>Corporate</td>
-                        <td>Head Office - New York</td>
-                        <td>12</td>
-                        <td>$95,000</td>
-                        <td>$104,600</td>
-                        <td>- $9,600</td>
-                        <td>
-                            <span class="status-pill status-overbudget">Over Budget</span>
-                        </td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Department">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr data-location="Remote" data-group="Support" data-status="Under Utilized">
-                        <td>
-                            <div class="emp-name">IT & Infrastructure</div>
-                            <div class="emp-sub">Systems, Security & Tools</div>
-                        </td>
-                        <td>IT-6001</td>
-                        <td>Support Functions</td>
-                        <td>Remote</td>
-                        <td>9</td>
-                        <td>$70,000</td>
-                        <td>$51,400</td>
-                        <td>+$18,600</td>
-                        <td>
-                            <span class="status-pill status-underutilized">Under Utilized</span>
-                        </td>
-                        <td>
-                            <div class="table-actions">
-                                <button class="icon-btn view" title="View Details">
-                                    <i class="fa-solid fa-eye"></i>
-                                </button>
-                                <button class="icon-btn edit" title="Edit Department">
-                                    <i class="fa-solid fa-pen"></i>
-                                </button>
-                                <button class="icon-btn delete" title="Delete Department">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="table-footer">
-                <div id="tableInfo">Showing 1 to 6 of 6 departments</div>
+                <div id="policyTableInfo">Showing 1 to 6 of 6 policies</div>
                 <div class="pagination">
                     <button disabled title="Previous page">
                         <i class="fa-solid fa-angle-left"></i>
@@ -1407,6 +1364,7 @@
 <div id="sidebarOverlay" class="sidebar-overlay" tabindex="-1" aria-hidden="true"></div>
 
 <script>
+    // Sidebar & nav behaviour (same pattern as your other pages)
     (function () {
         const sidebarEl = document.getElementById('sidebar');
         const menuBtn = document.getElementById('menuBtn');
@@ -1508,73 +1466,66 @@
         });
     })();
 
-    // Departments & Cost Centers filters
-    const searchInput = document.getElementById('searchInput');
-    const filterLocation = document.getElementById('filterLocation');
-    const filterGroup = document.getElementById('filterGroup');
+    // Policies filters
+    const searchPolicy = document.getElementById('searchPolicy');
+    const filterCategory = document.getElementById('filterCategory');
+    const filterAudience = document.getElementById('filterAudience');
     const filterStatus = document.getElementById('filterStatus');
-    const deptTable = document.getElementById('deptTable');
-    const deptCountBadge = document.getElementById('deptCountBadge');
-    const tableInfo = document.getElementById('tableInfo');
-    const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+    const clearPolicyFilters = document.getElementById('clearPolicyFilters');
+    const policyTable = document.getElementById('policyTable');
+    const policyCountBadge = document.getElementById('policyCountBadge');
+    const policyTableInfo = document.getElementById('policyTableInfo');
 
-    function applyFilters() {
-        const rows = deptTable.querySelectorAll('tbody tr');
-        const searchTerm = searchInput.value.trim().toLowerCase();
-        const locFilter = filterLocation.value;
-        const groupFilter = filterGroup.value;
-        const statusFilter = filterStatus.value;
+    function filterPolicies() {
+        const rows = policyTable.querySelectorAll('tbody tr');
+        const search = searchPolicy.value.toLowerCase();
+        const category = filterCategory.value;
+        const audience = filterAudience.value;
+        const status = filterStatus.value;
 
-        let visibleCount = 0;
+        let visible = 0;
 
         rows.forEach(row => {
             const rowText = row.textContent.toLowerCase();
-            const rowLoc = row.getAttribute('data-location');
-            const rowGroup = row.getAttribute('data-group');
+            const rowCategory = row.getAttribute('data-category');
+            const rowAudience = row.getAttribute('data-audience');
             const rowStatus = row.getAttribute('data-status');
 
-            const matchesSearch = !searchTerm || rowText.includes(searchTerm);
-            const matchesLoc = !locFilter || rowLoc === locFilter;
-            const matchesGroup = !groupFilter || rowGroup === groupFilter;
-            const matchesStatus = !statusFilter || rowStatus === statusFilter;
+            const matchesSearch = !search || rowText.includes(search);
+            const matchesCategory = !category || rowCategory === category;
+            const matchesAudience = !audience || rowAudience === audience;
+            const matchesStatus = !status || rowStatus === status;
 
-            if (matchesSearch && matchesLoc && matchesGroup && matchesStatus) {
+            if (matchesSearch && matchesCategory && matchesAudience && matchesStatus) {
                 row.style.display = '';
-                visibleCount++;
+                visible++;
             } else {
                 row.style.display = 'none';
             }
         });
 
-        deptCountBadge.textContent = 'Total: ' + visibleCount;
-        tableInfo.textContent = `Showing 1 to ${visibleCount} of ${deptTable.querySelectorAll('tbody tr').length} departments`;
+        policyCountBadge.textContent = 'Total: ' + visible;
+        policyTableInfo.textContent = `Showing 1 to ${visible} of ${policyTable.querySelectorAll('tbody tr').length} policies`;
     }
 
-    if (searchInput) searchInput.addEventListener('input', applyFilters);
-    if (filterLocation) filterLocation.addEventListener('change', applyFilters);
-    if (filterGroup) filterGroup.addEventListener('change', applyFilters);
-    if (filterStatus) filterStatus.addEventListener('change', applyFilters);
+    if (searchPolicy) searchPolicy.addEventListener('input', filterPolicies);
+    if (filterCategory) filterCategory.addEventListener('change', filterPolicies);
+    if (filterAudience) filterAudience.addEventListener('change', filterPolicies);
+    if (filterStatus) filterStatus.addEventListener('change', filterPolicies);
 
-    if (clearFiltersBtn) {
-        clearFiltersBtn.addEventListener('click', () => {
-            searchInput.value = '';
-            filterLocation.value = '';
-            filterGroup.value = '';
+    if (clearPolicyFilters) {
+        clearPolicyFilters.addEventListener('click', () => {
+            searchPolicy.value = '';
+            filterCategory.value = '';
+            filterAudience.value = '';
             filterStatus.value = '';
-            applyFilters();
+            filterPolicies();
         });
     }
 
-    const addDeptBtn = document.getElementById('addDeptBtn');
-    if (addDeptBtn) {
-        addDeptBtn.addEventListener('click', () => {
-            // Replace with your actual Dept / Cost Center form page
-            window.location.href = 'add_department_costcenter.html';
-        });
-    }
-
-    // Initial count
-    applyFilters();
+    // Initial filter state
+    filterPolicies();
 </script>
+
 </body>
 </html>
